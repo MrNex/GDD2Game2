@@ -1,5 +1,10 @@
 package mathematics;
 
+/**
+ * Vector class for all Vector arithmetic.
+ * @author Nex
+ *
+ */
 public class Vec {
 
 	//Attributes

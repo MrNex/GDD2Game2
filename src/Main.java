@@ -1,6 +1,10 @@
 import mathematics.Vec;
 
-//Defines the entry point for the program
+/**
+ * Defines the entry point for the program
+ * @author Nex
+ *
+ */
 public class Main {
 
 	/**
