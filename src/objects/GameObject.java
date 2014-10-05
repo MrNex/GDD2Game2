@@ -78,6 +78,22 @@ public class GameObject {
 	public double getYPos(){
 		return position.getComponent(1);
 	}
+	
+	/**
+	 * Gets the width of the gameobject's bounding box
+	 * @return a double containing the width of the bounding box
+	 */
+	public double getWidth(){
+		return width;
+	}
+	
+	/**
+	 * Gets the height of the gameobjects bounding box
+	 * @return the height of the bounding box
+	 */
+	public double getHeight(){
+		return height;
+	}
 
 	/**
 	 * Sets the state of an {@link GameObject}.

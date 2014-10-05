@@ -1,6 +1,15 @@
 package engine;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
+import engine.manager.Manager;
+import engine.manager.ScreenManager;
 import state.*;
+import state.enginestates.EngineState;
+import state.enginestates.TestState;
 
 
 /**
@@ -11,11 +20,15 @@ import state.*;
  */
 public class Engine {
 
+	//Static variables
+	public static Engine currentInstance;
 
 	//Attributes
 	private boolean running;
-	private State currentState;
-
+	private EngineState currentState;
+	private Manager[] managers;
+	private Timer drawTimer;
+	
 	/**
 	 * Constructs an engine
 	 */
@@ -29,12 +42,32 @@ public class Engine {
 	public void init()
 	{
 		//TODO: Set the currentState
-		//currentState = new ;
+		currentState = new TestState();
 
 
 		//Set internal variables
 		running = false;
 
+		
+		//Create managers
+		managers = new Manager[1];
+		
+		managers[0] = new ScreenManager();
+		
+		//Create timer for screen manager
+		drawTimer = new Timer(1000/60, new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//Update screen
+				managers[0].update();
+			}
+			
+		});
+		
+		drawTimer.setRepeats(true);
+		
+		
 	}
 
 	/**
@@ -50,13 +83,14 @@ public class Engine {
 
 	private void run()
 	{
+		drawTimer.start();
 		while(running)
 		{
 			currentState.update();
 		}
 	}
 
-	public State getCurrentState()
+	public EngineState getCurrentState()
 	{
 		return currentState;
 	}
