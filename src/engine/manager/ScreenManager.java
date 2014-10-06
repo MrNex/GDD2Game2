@@ -26,6 +26,7 @@ public class ScreenManager extends Manager{
 	private JPanel drawPanel;
 	private Color backgroundColor;
 	private int width, height;
+	
 
 
 	/**
@@ -33,6 +34,15 @@ public class ScreenManager extends Manager{
 	 */
 	public ScreenManager() {
 		super();
+	}
+	
+	//Accessors
+	/**
+	 * Get the window the program is running in
+	 * @return The window containing the program
+	 */
+	public JFrame getWindow(){
+		return window;
 	}
 
 	/**
@@ -92,6 +102,9 @@ public class ScreenManager extends Manager{
 		backgroundColor = Color.white;
 	}
 
+	/**
+	 * Paints the screen
+	 */
 	@Override
 	public void update() {
 		drawPanel.repaint();

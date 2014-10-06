@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import engine.manager.InputManager;
 import engine.manager.Manager;
 import engine.manager.ScreenManager;
 import state.*;
@@ -52,7 +53,8 @@ public class Engine {
 		//Create managers
 		managers = new Manager[1];
 		
-		managers[0] = new ScreenManager();
+		managers[0] = new InputManager();
+		managers[1] = new ScreenManager();
 		
 		//Create timer for screen manager
 		drawTimer = new Timer(1000/60, new ActionListener(){
@@ -81,6 +83,10 @@ public class Engine {
 		run();
 	}
 
+	/**
+	 * This is the run loop for the engine.
+	 * Constantly updates the current state of the engine.
+	 */
 	private void run()
 	{
 		drawTimer.start();
@@ -90,9 +96,25 @@ public class Engine {
 		}
 	}
 
+	/**
+	 * Gets the current state of the engine
+	 * @return The current state of the engine
+	 */
 	public EngineState getCurrentState()
 	{
 		return currentState;
+	}
+	
+	/**
+	 * Gets an engine components manager.
+	 * Index values are as follows:
+	 * 0 - Input Manager
+	 * 1 - Screen Manager
+	 * @param index Index of the component manager needed
+	 * @return The desired component manager
+	 */
+	public Manager getManager(int index){
+		return managers[index];
 	}
 
 }
