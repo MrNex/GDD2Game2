@@ -36,7 +36,7 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 		keys = new boolean[256];
 		
 		//Initialize array of mouseButtons
-		
+		mButtons = new boolean[MouseInfo.getNumberOfButtons()];
 	}
 
 	
@@ -45,38 +45,53 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	 */
 	@Override
 	public void update() {
-		
+		previousMousePosition = mousePosition;
+		mousePosition = getMousePosition();
 		
 	}
 
-	
+	/**
+	 * Not currently in use
+	 */
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Not currently in use
+	 */
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Not currently in use
+	 */
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * Registers a mouse button press and stores true under the correct index of mouse button presses
+	 */
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent mousePress) {
+		mButtons[mousePress.getButton()] = true;
 		
 	}
 
+	/**
+	 * Registers a mouse button release and stores false under the correct index of mouse button presses
+	 */
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseReleased(MouseEvent mouseRelease) {
+		mButtons[mouseRelease.getButton()] = false;
 		
 	}
 
