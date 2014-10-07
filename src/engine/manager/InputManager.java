@@ -37,6 +37,9 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 		
 		//Initialize array of mouseButtons
 		mButtons = new boolean[MouseInfo.getNumberOfButtons()];
+		
+		mousePosition = new Vec(2);
+		previousMousePosition = new Vec(2);
 	}
 
 	
@@ -46,7 +49,16 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	@Override
 	public void update() {
 		previousMousePosition = mousePosition;
-		mousePosition = getMousePosition();
+		mousePosition = getUpdatedMousePosition();
+		
+		//System.out.println(mousePosition.toString());
+		for(int i = 0; i < 256; i++){
+			if(keys[i] == true){
+				char c = (char)i;
+				System.out.println(c);
+			}
+				
+		}
 		
 	}
 
@@ -120,14 +132,14 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	}
 	
 	/**
-	 * Gets the mouse position in window space
+	 * Gets the current mouse position in window space
 	 * @return A vector containing the mouse positionin window space
 	 */
-	private Vec getMousePosition(){
+	private Vec getUpdatedMousePosition(){
 		//Get the mouse's screen position
 		Point globalMousePos = MouseInfo.getPointerInfo().getLocation();
 		//Retrieve reference to screen manager
-		ScreenManager ref = (ScreenManager)Engine.currentInstance.getManager(1);
+		ScreenManager ref = (ScreenManager)Engine.currentInstance.getManager(Engine.Managers.SCREENMANAGER);
 		//Retrieve windows position
 		Point windowPos = ref.getWindow().getLocation();
 		

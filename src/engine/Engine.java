@@ -24,6 +24,11 @@ public class Engine {
 	//Static variables
 	public static Engine currentInstance;
 
+	//Enums
+	public enum Managers{
+		INPUTMANAGER, SCREENMANAGER
+	}
+	
 	//Attributes
 	private boolean running;
 	private EngineState currentState;
@@ -42,6 +47,9 @@ public class Engine {
 	 */
 	public void init()
 	{
+		//Set this as current instance of engine
+		currentInstance = this;
+		
 		//TODO: Set the currentState
 		currentState = new TestState();
 
@@ -51,10 +59,10 @@ public class Engine {
 
 		
 		//Create managers
-		managers = new Manager[1];
+		managers = new Manager[2];
 		
-		managers[0] = new InputManager();
-		managers[1] = new ScreenManager();
+		managers[Managers.INPUTMANAGER.ordinal()] = new InputManager();
+		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
 		
 		//Create timer for screen manager
 		drawTimer = new Timer(1000/60, new ActionListener(){
@@ -62,7 +70,7 @@ public class Engine {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//Update screen
-				managers[0].update();
+				managers[Engine.Managers.SCREENMANAGER.ordinal()].update();
 			}
 			
 		});
@@ -79,6 +87,8 @@ public class Engine {
 	{
 		//Set running to true
 		running = true;
+		//Begin drawloop
+		drawTimer.start();
 		//Run
 		run();
 	}
@@ -89,9 +99,11 @@ public class Engine {
 	 */
 	private void run()
 	{
-		drawTimer.start();
 		while(running)
 		{
+			//Update managers
+			managers[Managers.INPUTMANAGER.ordinal()].update();
+			
 			currentState.update();
 		}
 	}
@@ -113,8 +125,8 @@ public class Engine {
 	 * @param index Index of the component manager needed
 	 * @return The desired component manager
 	 */
-	public Manager getManager(int index){
-		return managers[index];
+	public Manager getManager(Managers manager){
+		return managers[manager.ordinal()];
 	}
 
 }
