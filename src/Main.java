@@ -14,9 +14,9 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		//Initialize engine
-		Engine.currentInstance = new Engine();
+		Engine e = new Engine();
 		
-		Engine.currentInstance.start();
+		e.start();
 	}
 
 }

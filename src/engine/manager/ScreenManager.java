@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -58,7 +60,7 @@ public class ScreenManager extends Manager{
 		height = 600;
 
 		//Create the window
-		window = new JFrame("Mathemancy V 0.1");
+		window = new JFrame("RatattackThing V 0.1");
 		window.setSize(width, height);
 
 		//Create the panel
@@ -92,7 +94,6 @@ public class ScreenManager extends Manager{
 
 		drawPanel.setPreferredSize(new Dimension(800, 600));
 
-		//window.setContentPane(this);
 		window.add(drawPanel);
 
 		window.setVisible(true);
@@ -100,6 +101,16 @@ public class ScreenManager extends Manager{
 
 		//Set the background
 		backgroundColor = Color.white;
+
+		//Get listeners
+		KeyListener listener = (KeyListener)Engine.currentInstance.getManager(Engine.Managers.INPUTMANAGER);
+		MouseListener mlistener = (MouseListener)Engine.currentInstance.getManager(Engine.Managers.INPUTMANAGER);
+		
+		//Add input listeners
+		drawPanel.addKeyListener(listener);
+		drawPanel.addMouseListener(mlistener);
+		//Set as focusable
+		drawPanel.setFocusable(true);
 	}
 
 	/**
