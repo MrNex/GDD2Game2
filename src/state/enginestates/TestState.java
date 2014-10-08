@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 
 import objects.GameObject;
+import state.objectstates.PlayerState;
 
 public class TestState extends EngineState {
 
@@ -21,6 +22,7 @@ public class TestState extends EngineState {
 		testObj.setColor(Color.black);
 		testObj.setVisible(true);
 		
+		testObj.setState(new PlayerState());
 		//Add gameobject to current state
 		addObj(testObj);
 	}

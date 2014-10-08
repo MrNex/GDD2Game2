@@ -12,6 +12,7 @@ public class GameObject {
 
 	//Attributes
 	protected Vec position;
+	protected Vec forward, right;
 	protected double width, height;
 	protected boolean visible, running;
 	protected RectangularShape shape;
@@ -30,6 +31,11 @@ public class GameObject {
 	public GameObject(double xx, double yy, double w, double h) {
 		//Set designated attributes
 		position = new Vec(xx, yy);
+		
+		//TODO: Set directional vectors
+		//forward = fwd;
+		//right = 
+		
 
 		width = w;
 		height = h;
@@ -44,6 +50,8 @@ public class GameObject {
 		color = Color.black;
 
 		image = null;
+		
+		
 	}
 
 	//Accessors

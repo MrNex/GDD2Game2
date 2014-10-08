@@ -234,6 +234,27 @@ public class Vec {
 	}
 	
 	/**
+	 * Geometrically rotates a vector by a specified degree angle in XY plane
+	 * Converts degrees to radians and calls normal rotate function
+	 * @param deg angle in degrees by which to rotate.
+	 */
+	public void rotateByDeg(double deg){
+		rotate((deg*Math.PI)/ 180.0);
+	}
+	
+	/**
+	 * Geometrically rotates a vector by a specified radian angle in the XY plane
+	 * @param rad angle in radians to rotate vector
+	 */
+	public void rotate(double rad){
+		//Store components
+		double c1 = getComponent(0);
+		double c2 = getComponent(1);
+		setComponent(0, (Math.cos(rad) * c1 - Math.sin(rad) * c2));
+		setComponent(0, (Math.sin(rad) * c1 + Math.cos(rad) * c2));
+	}
+	
+	/**
 	 * Creates a string representation of this vector
 	 * @return A string containing the components of his vector.
 	 */
