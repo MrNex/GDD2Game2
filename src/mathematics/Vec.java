@@ -255,6 +255,39 @@ public class Vec {
 	}
 	
 	/**
+	 * Rotates a specified vector by a specified radian angle
+	 * @param v Vector to rotate
+	 * @param rad Angle in radians to rotate it by
+	 * @return A new vector representing a rotated v
+	 */
+	public static Vec rotate(Vec v, double rad){
+		//Create a new vector identical to v
+		Vec returnVector = new Vec(v);
+		
+		//GEt the components
+		double c1 = returnVector.getComponent(0);
+		double c2 = returnVector.getComponent(1);
+		
+		
+		
+		returnVector.setComponent(0, (Math.cos(rad) * c1 - Math.sin(rad) * c2));
+		returnVector.setComponent(0, (Math.sin(rad) * c1 + Math.cos(rad) * c2));
+		
+		return returnVector;
+	}
+	
+	/**
+	 * Rotates a vector by a specified degree angle
+	 * Converts degrees to radians and calls normal Vec.Rotate function
+	 * @param v Vector to rotate
+	 * @param deg Degree angle to rotate by
+	 * @return A new vector representing a rotated v
+	 */
+	public static Vec rotateByDeg(Vec v, double deg){
+		return Vec.rotate(v, (deg*Math.PI)/180.0);
+	}
+	
+	/**
 	 * Creates a string representation of this vector
 	 * @return A string containing the components of his vector.
 	 */

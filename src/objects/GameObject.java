@@ -27,14 +27,15 @@ public class GameObject {
 	 * @param yy Y Position in worlspace
 	 * @param w object width
 	 * @param h object height
+	 * @param fwd Forward vector, which direction is this gameobject facing.
 	 */
-	public GameObject(double xx, double yy, double w, double h) {
+	public GameObject(double xx, double yy, double w, double h, Vec fwd) {
 		//Set designated attributes
 		position = new Vec(xx, yy);
 		
-		//TODO: Set directional vectors
-		//forward = fwd;
-		//right = 
+		//Set directional vectors
+		forward = fwd;
+		right = Vec.rotate(forward, -Math.PI/2);
 		
 
 		width = w;
@@ -103,6 +104,22 @@ public class GameObject {
 		return height;
 	}
 
+	/**
+	 * Gets the forward vector of the gameobject
+	 * @return A vector representing the direction which this gameObject s facing
+	 */
+	public Vec getForward(){
+		return forward;
+	}
+	
+	/**
+	 * Sets the forward vector of the gameObject
+	 * @param v Vector representing a new forward vector.
+	 */
+	public void setForward(Vec v){
+		forward = v;
+	}
+	
 	/**
 	 * Sets the state of an {@link GameObject}.
 	 * 
