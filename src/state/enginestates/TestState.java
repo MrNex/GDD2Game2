@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import mathematics.Vec;
 import objects.GameObject;
 import objects.MovableGameObject;
+import state.objectstates.EnemyState;
 import state.objectstates.PlayerAimState;
 import state.objectstates.PlayerState;
 
@@ -56,6 +57,22 @@ public class TestState extends EngineState {
 		testObj3.setVisible(true);
 
 		addObj(testObj3);
+		
+		
+	//Uncomment to see enemy behavior
+//		//Create an enemy
+//		GameObject testObj4 = new MovableGameObject(300, 300, 50, 50, new Vec(0, 0));
+//
+//		//Visuals
+//		testObj.setShape(new Ellipse2D.Double());
+//		testObj.setColor(Color.red);
+//		testObj.setVisible(true);
+//
+//		//Behavior
+//		testObj.setState(new EnemyState());
+//		testObj.setRunning(true);
+//		
+//		addObj(testObj4);
 	}
 
 

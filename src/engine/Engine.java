@@ -51,9 +51,7 @@ public class Engine {
 		//Set this as current instance of engine
 		currentInstance = this;
 		
-		//TODO: Set the currentState
-		currentState = new TestState();
-
+		//Creation of currentState moved from here due to null pointer exception
 
 		//Set internal variables
 		running = false;
@@ -65,6 +63,9 @@ public class Engine {
 		managers[Managers.INPUTMANAGER.ordinal()] = new InputManager();
 		managers[Managers.COLLISIONMANAGER.ordinal()] = new CollisionManager();
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
+		
+		//Create currentState ****Moved here to fix null pointer exception****
+		currentState = new TestState();
 		
 		//Create timer for screen manager
 		drawTimer = new Timer(1000/60, new ActionListener(){
