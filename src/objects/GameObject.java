@@ -263,10 +263,10 @@ public class GameObject {
 	public boolean isColliding(GameObject obj){
 
 		//If the left side of this is to the left  right side of obj and the right side of this is to the right of the left side of obj
-		if(position.getComponent(0) < obj.position.getComponent(0) + this.width && this.position.getComponent(0) + this.width > obj.position.getComponent(0)){
+		if(position.getComponent(0) < obj.position.getComponent(0) + obj.width && this.position.getComponent(0) + this.width > obj.position.getComponent(0)){
 
 			//IF the top of this is higher than the bottom of obj and the bottom of this is further down than the top of obj
-			if(position.getComponent(1) < obj.position.getComponent(1) + this.height && this.position.getComponent(1) + this.height > obj.position.getComponent(1)){
+			if(position.getComponent(1) < obj.position.getComponent(1) + obj.height && this.position.getComponent(1) + this.height > obj.position.getComponent(1)){
 				return true;
 			}	
 		}
