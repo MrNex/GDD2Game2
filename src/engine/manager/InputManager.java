@@ -52,6 +52,26 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 		
 		return keys[(int)Character.toUpperCase(c)];
 	}
+	
+	/**
+	 * Gets whether a mouse button is pressed.
+	 * 1 - Left mouse button
+	 * 2 - Middle mouse button
+	 * 3 - Right mouse button
+	 * @param mouseButton Mouse button to check
+	 * @return If the specified mouse button is pressed
+	 */
+	public boolean isMouseButtonPressed(int mouseButton){
+		return mButtons[mouseButton];
+	}
+	
+	/**
+	 * Gets the current mouse position
+	 * @return Vec2 containing the current mouse position
+	 */
+	public Vec getMousePosition(){
+		return mousePosition;
+	}
 
 	
 	/**
@@ -61,15 +81,6 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	public void update() {
 		previousMousePosition = mousePosition;
 		mousePosition = getUpdatedMousePosition();
-		
-		//System.out.println(mousePosition.toString());
-		for(int i = 0; i < 256; i++){
-			if(keys[i] == true){
-				char c = (char)i;
-				System.out.println(c);
-			}
-				
-		}
 		
 	}
 

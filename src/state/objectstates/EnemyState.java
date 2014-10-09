@@ -1,5 +1,7 @@
 package state.objectstates;
 
+import java.awt.Graphics2D;
+
 import mathematics.Vec;
 
 public class EnemyState extends ObjectState {
@@ -27,6 +29,12 @@ public class EnemyState extends ObjectState {
 		attachedTo.setVisible(false);
 		attachedTo.setRunning(false);
 
+	}
+
+	@Override
+	public void drawEffects(Graphics2D g2d) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

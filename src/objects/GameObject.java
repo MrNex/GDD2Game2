@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.RectangularShape;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import mathematics.*;
 import state.objectstates.ObjectState;
+import triggers.Trigger;
 
 public class GameObject {
 
@@ -19,12 +21,14 @@ public class GameObject {
 	protected BufferedImage image;
 	protected Color color;
 	protected ObjectState currentState;
-
+	protected boolean triggerable;
+	protected ArrayList<Trigger> triggers;
+	
 	/**
 	 * Creates a basic GameObject with a position and size
 	 * GameObject defaults to not running and not visible with a null state
 	 * @param xx X Position in worldspace
-	 * @param yy Y Position in worlspace
+	 * @param yy Y Position in worldspace
 	 * @param w object width
 	 * @param h object height
 	 * @param fwd Forward vector, which direction is this gameobject facing.
@@ -35,7 +39,7 @@ public class GameObject {
 		
 		//Set directional vectors
 		forward = fwd;
-		right = Vec.rotate(forward, -Math.PI/2);
+		right = Vec.rotate(forward, Math.PI/2);
 		
 
 		width = w;
@@ -51,6 +55,8 @@ public class GameObject {
 		color = Color.black;
 
 		image = null;
+		
+		triggerable = false;
 		
 		
 	}
@@ -130,6 +136,15 @@ public class GameObject {
 	 */
 	public void setForward(Vec v){
 		forward = v;
+		right = Vec.rotate(forward, Math.PI/2);
+	}
+	
+	/**
+	 * Gets the right vector
+	 * @return The right vector.
+	 */
+	public Vec getRight(){
+		return right;
 	}
 	
 	/**
@@ -223,6 +238,52 @@ public class GameObject {
 		setColor(color);
 	}
 	
+	/**
+	 * Gets whether this object is triggerable or not
+	 * @return True if triggerable, false if not triggerable
+	 */
+	public boolean isTriggerable(){
+		return triggerable;
+	}
+	
+	/**
+	 * Sets whether this object is triggerable or not.
+	 * IF set to true the arrayList of triggers is initialized.
+	 * This will clear the list of triggers.
+	 * @param isTriggerable Whether or not this object should be triggerable
+	 */
+	public void setTriggerable(boolean isTriggerable){
+		triggerable = isTriggerable;
+		//If this object is triggerable, initialize its list of triggers
+		if(triggerable){
+			triggers = new ArrayList<Trigger>();
+		}
+	}
+	
+	/**
+	 * Adds a trigger to this gameObject
+	 * @param triggerToAdd The trigger being added
+	 */
+	public void addTrigger(Trigger triggerToAdd){
+		triggers.add(triggerToAdd);
+		triggerToAdd.setAttachedObj(this);
+	}
+	
+	/**
+	 * Removes a trigger from this gameObject
+	 * @param triggerToRemove the trigger being removed
+	 */
+	public void removeTrigger(Trigger triggerToRemove){
+		triggers.remove(triggerToRemove);
+	}
+	
+	/**
+	 * Gets the list of triggers attached to this object
+	 * @return An arrayList of all triggers attached to this object
+	 */
+	public ArrayList<Trigger> getTriggers(){
+		return new ArrayList<Trigger>(triggers);
+	}
 
 	/**
 	 * Updates the current state of the gameObject if this object is running

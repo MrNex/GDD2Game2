@@ -270,7 +270,7 @@ public class Vec {
 		double c1 = getComponent(0);
 		double c2 = getComponent(1);
 		setComponent(0, (Math.cos(rad) * c1 - Math.sin(rad) * c2));
-		setComponent(0, (Math.sin(rad) * c1 + Math.cos(rad) * c2));
+		setComponent(1, (Math.sin(rad) * c1 + Math.cos(rad) * c2));
 	}
 	
 	/**
@@ -290,7 +290,7 @@ public class Vec {
 		
 		
 		returnVector.setComponent(0, (Math.cos(rad) * c1 - Math.sin(rad) * c2));
-		returnVector.setComponent(0, (Math.sin(rad) * c1 + Math.cos(rad) * c2));
+		returnVector.setComponent(1, (Math.sin(rad) * c1 + Math.cos(rad) * c2));
 		
 		return returnVector;
 	}
