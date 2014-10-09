@@ -1,5 +1,8 @@
 package state.objectstates;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 import objects.GameObject;
 import objects.MovableGameObject;
 import engine.Engine;
@@ -63,6 +66,19 @@ public class PlayerState extends ObjectState {
 	public void exit() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * Draw a line segment representing the forward vector.
+	 */
+	@Override
+	public void drawEffects(Graphics2D g2d) {
+		g2d.setColor(Color.cyan);
+		Vec lineStart = attachedTo.getCenter();
+		Vec lineEnd = new Vec(2);
+		lineEnd.copy(lineStart);
+		lineEnd.add(Vec.setMag(attachedTo.getForward(), 20));
+		g2d.drawLine((int)lineStart.getComponent(0), (int)lineStart.getComponent(1), (int)lineEnd.getComponent(0), (int)lineEnd.getComponent(1));
 	}
 
 }

@@ -103,6 +103,18 @@ public class GameObject {
 	public double getHeight(){
 		return height;
 	}
+	
+	/**
+	 * Gets a position vector representing the center of this object
+	 * @return A vector holding the coordinates of the exact center of this object
+	 */
+	public Vec getCenter(){
+		Vec centerVec = new Vec(2);
+		centerVec.copy(position);
+		centerVec.incrementComponent(0, width/2.0);
+		centerVec.incrementComponent(1, height/2.0);
+		return centerVec;
+	}
 
 	/**
 	 * Gets the forward vector of the gameobject
@@ -225,6 +237,8 @@ public class GameObject {
 	 * Draws the image of this gameObject if the object is visible
 	 * IF there is no image, but the object is visible, this will 
 	 * draw the shape of the gameobject.
+	 * 
+	 * If the gameobject is visible AND it is running, the current state's drawEffects method will also be called.
 	 * @param g2d Graphics object to draw with
 	 */
 	public void draw(Graphics2D g2d){
@@ -242,6 +256,12 @@ public class GameObject {
 				g2d.setColor(color);
 				//Fill the shape
 				g2d.fill(shape);
+			}
+			
+			//If this obj is running
+			if(isRunning()){
+				//Draw it's state
+				currentState.drawEffects(g2d);
 			}
 		}
 	}

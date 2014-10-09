@@ -21,7 +21,7 @@ public class MovableGameObject extends GameObject {
 	
 	public MovableGameObject(double xx, double yy, double w, double h, Vec fwd) {
 		super(xx, yy, w, h, fwd);
-		previousPosition = new Vec(3);
+		previousPosition = new Vec(2);
 	}
 	
 	/**
@@ -30,7 +30,7 @@ public class MovableGameObject extends GameObject {
 	 * @param movementVec The vector to increment position by
 	 */
 	public void move(Vec movementVec){
-		previousPosition.Copy(position);
+		previousPosition.copy(position);
 		position.add(movementVec);
 		updateShape();
 	}
@@ -40,7 +40,7 @@ public class MovableGameObject extends GameObject {
 	 * And makes call to updateShape
 	 */
 	public void revert(){
-		position.Copy(previousPosition);
+		position.copy(previousPosition);
 		System.out.println(position.toString());
 		updateShape();
 	}

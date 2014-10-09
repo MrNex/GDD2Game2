@@ -20,7 +20,7 @@ public class TestState extends EngineState {
 		super.init();
 		
 		//Create a gameobject
-		GameObject testObj = new MovableGameObject(520, 480, 20, 20, new Vec(3));
+		GameObject testObj = new MovableGameObject(520, 480, 20, 20, new Vec(0, -1));
 		
 		//Visuals
 		testObj.setShape(new Ellipse2D.Double());
@@ -36,7 +36,7 @@ public class TestState extends EngineState {
 		
 		
 		//Make another!
-		GameObject testObj2 = new GameObject(500, 500, 50, 50, new Vec(3));
+		GameObject testObj2 = new GameObject(500, 500, 50, 50, new Vec(1, 0));
 		
 		//Visuals
 		testObj2.setShape(new Rectangle2D.Double());

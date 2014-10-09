@@ -100,7 +100,7 @@ public class Vec {
 	 * Copies the contents of a vector into this vector
 	 * @param v The vector to copy
 	 */
-	public void Copy(Vec v){
+	public void copy(Vec v){
 		numComponents = v.numComponents;
 		for(int i = 0; i < numComponents; i++)
 			components[i] = v.components[i];
