@@ -30,7 +30,7 @@ public class MovableGameObject extends GameObject {
 	 * @param movementVec The vector to increment position by
 	 */
 	public void move(Vec movementVec){
-		previousPosition = position;
+		previousPosition.Copy(position);
 		position.add(movementVec);
 		updateShape();
 	}
@@ -40,7 +40,8 @@ public class MovableGameObject extends GameObject {
 	 * And makes call to updateShape
 	 */
 	public void revert(){
-		position = previousPosition;
+		position.Copy(previousPosition);
+		System.out.println(position.toString());
 		updateShape();
 	}
 

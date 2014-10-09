@@ -2,9 +2,11 @@ package state.enginestates;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 import mathematics.Vec;
 import objects.GameObject;
+import objects.MovableGameObject;
 import state.objectstates.PlayerState;
 
 public class TestState extends EngineState {
@@ -18,15 +20,31 @@ public class TestState extends EngineState {
 		super.init();
 		
 		//Create a gameobject
-		GameObject testObj = new GameObject(300, 200, 100, 300, new Vec(3));
-		testObj.setShape(new Ellipse2D.Double(testObj.getXPos(), testObj.getYPos(), testObj.getWidth(), testObj.getHeight()));
-		testObj.setColor(Color.black);
+		GameObject testObj = new MovableGameObject(520, 480, 20, 20, new Vec(3));
+		
+		//Visuals
+		testObj.setShape(new Ellipse2D.Double());
+		testObj.setColor(Color.orange);
 		testObj.setVisible(true);
 		
+		//Behavior
 		testObj.setState(new PlayerState());
+		testObj.setRunning(true);
+		
 		//Add gameobject to current state
 		addObj(testObj);
+		
+		
+		//Make another!
+		GameObject testObj2 = new GameObject(500, 500, 50, 50, new Vec(3));
+		
+		//Visuals
+		testObj2.setShape(new Rectangle2D.Double());
+		testObj2.setVisible(true);
+	
+		addObj(testObj2);
 	}
+	
 	
 	
 }

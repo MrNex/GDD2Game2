@@ -41,6 +41,17 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 		mousePosition = new Vec(2);
 		previousMousePosition = new Vec(2);
 	}
+	
+	//Accessors
+	/**
+	 * Determines if a given key is pressed
+	 * @param c Character on key
+	 * @return
+	 */
+	public boolean isKeyPressed(char c){
+		
+		return keys[(int)Character.toUpperCase(c)];
+	}
 
 	
 	/**
@@ -112,7 +123,7 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	 */
 	@Override
 	public void keyPressed(KeyEvent keyPress) {
-		keys[keyPress.getKeyCode()] = true;
+		keys[(int)Character.toUpperCase(keyPress.getKeyChar())] = true;
 		
 	}
 
@@ -120,8 +131,8 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	 * Marks a key as being released in the array of key states
 	 */
 	@Override
-	public void keyReleased(KeyEvent keyPress) {
-		keys[keyPress.getKeyCode()] = false;
+	public void keyReleased(KeyEvent keyRelease) {
+		keys[(int)Character.toUpperCase(keyRelease.getKeyChar())] = false;
 		
 	}
 

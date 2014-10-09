@@ -44,7 +44,8 @@ public class CollisionManager extends Manager {
 			if(obj1 instanceof MovableGameObject){
 				for(GameObject obj2 : Engine.currentInstance.getCurrentState().getObjList()){
 					if(obj1 == obj2) continue;
-					if(obj1.isColliding(obj2)) ((MovableGameObject)obj1).revert();
+					if(obj1.isColliding(obj2)) 
+						((MovableGameObject)obj1).revert();
 				}
 			}
 		}

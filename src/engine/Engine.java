@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import engine.manager.CollisionManager;
 import engine.manager.InputManager;
 import engine.manager.Manager;
 import engine.manager.ScreenManager;
@@ -26,7 +27,7 @@ public class Engine {
 
 	//Enums
 	public enum Managers{
-		INPUTMANAGER, SCREENMANAGER
+		INPUTMANAGER, COLLISIONMANAGER, SCREENMANAGER
 	}
 	
 	//Attributes
@@ -59,9 +60,10 @@ public class Engine {
 
 		
 		//Create managers
-		managers = new Manager[2];
+		managers = new Manager[3];
 		
 		managers[Managers.INPUTMANAGER.ordinal()] = new InputManager();
+		managers[Managers.COLLISIONMANAGER.ordinal()] = new CollisionManager();
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
 		
 		//Create timer for screen manager
@@ -104,7 +106,11 @@ public class Engine {
 			//Update managers
 			managers[Managers.INPUTMANAGER.ordinal()].update();
 			
+			//TODO: Offload to statemanager to keep track of stateStack
 			currentState.update();
+			
+			//After objects update, update collisions.
+			managers[Managers.COLLISIONMANAGER.ordinal()].update();
 		}
 	}
 

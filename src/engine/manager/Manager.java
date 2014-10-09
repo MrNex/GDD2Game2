@@ -21,6 +21,7 @@ public abstract class Manager {
 	 * initialize member variables.
 	 */
 	public abstract void init();
+	
 	/**
 	 * Update this component of the engine.
 	 */

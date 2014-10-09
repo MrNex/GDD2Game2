@@ -84,9 +84,28 @@ public class Vec {
 	public void setComponent(int index, double val){
 		components[index] = val;
 	}
+	
+	/**
+	 * Increments a specified component of this vector
+	 * @param index Index of component to increment
+	 * @param val Value to increment component by
+	 */
+	public void incrementComponent(int index, double val){
+		components[index] += val;
+	}
 
 
 	//Methods
+	/**
+	 * Copies the contents of a vector into this vector
+	 * @param v The vector to copy
+	 */
+	public void Copy(Vec v){
+		numComponents = v.numComponents;
+		for(int i = 0; i < numComponents; i++)
+			components[i] = v.components[i];
+	}
+	
 	/**
 	 * Gets the magnitude of this vector
 	 * @return Returns the magnitude of this vector
