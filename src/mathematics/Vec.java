@@ -220,6 +220,16 @@ public class Vec {
 
 		return difference;
 	}
+	
+	/**
+	 * Scales this vector by the scaleFactor
+	 * @param scaleFactor Scalefactor the scale the vector by
+	 */
+	public void scalarMultiply(double scaleFactor){
+		for(int i = 0; i < numComponents; i++){
+			components[i] *= scaleFactor;
+		}
+	}
 
 	/**
 	 * <p>Calculates the dot product of this vector with another vector</p>

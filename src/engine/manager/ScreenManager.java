@@ -46,6 +46,14 @@ public class ScreenManager extends Manager{
 	public JFrame getWindow(){
 		return window;
 	}
+	
+	/**
+	 * Gets the drawPanel the progrma is drawing on
+	 * @return The panel containing all graphics.
+	 */
+	public JPanel getPanel(){
+		return drawPanel;
+	}
 
 	/**
 	 * Initializes all member variables of ScreenManager.

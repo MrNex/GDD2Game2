@@ -1,5 +1,7 @@
 package engine.manager;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
@@ -8,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import engine.Engine;
+import engine.Engine.Managers;
 import mathematics.Vec;
 
 public class InputManager extends Manager implements KeyListener, MouseListener{
@@ -17,7 +20,8 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	private boolean[] mButtons;
 	private Vec mousePosition;
 	private Vec previousMousePosition;
-	
+	private boolean mouseWrap;
+	Robot r;
 	
 	/**
 	 * Constructs a new input manager
@@ -40,6 +44,15 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 		
 		mousePosition = new Vec(2);
 		previousMousePosition = new Vec(2);
+		
+		mouseWrap = false;
+		
+		try {
+			r = new Robot();
+		} catch (AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	//Accessors
@@ -72,16 +85,50 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	public Vec getMousePosition(){
 		return mousePosition;
 	}
+	
+	public Vec getPreviousMousePosition(){
+		return previousMousePosition;
+	}
 
 	
 	/**
 	 * Updates the mouse positions
+	 * 
+	 * Will wrap mouse to other side of window upon exit if mouseWrap is on.
 	 */
 	@Override
 	public void update() {
 		previousMousePosition = mousePosition;
 		mousePosition = getUpdatedMousePosition();
 		
+		
+		//This doesn't fucking work.
+		if(mouseWrap){
+			ScreenManager screen = (ScreenManager)Engine.currentInstance.getManager(Managers.SCREENMANAGER);
+			
+			System.out.println(mousePosition.toString());
+			
+			//If the mouse left the left side of the screen
+			if(mousePosition.getComponent(0) < 0){
+				mousePosition.setComponent(0, screen.getWindow().WIDTH - 25);
+				previousMousePosition.incrementComponent(0, screen.getWindow().WIDTH - 25);
+				r.mouseMove((int)(screen.getWindow().getX() + screen.getPanel().getX() + mousePosition.getComponent(0)), (int)(screen.getWindow().getY() + screen.getPanel().getY() + mousePosition.getComponent(1)));
+			}
+			else if(mousePosition.getComponent(0) > screen.getWindow().WIDTH){
+				mousePosition.setComponent(0, 25);
+				previousMousePosition.incrementComponent(0, -screen.getWindow().WIDTH + 25);
+				r.mouseMove((int)(screen.getWindow().getX() + screen.getPanel().getX() + mousePosition.getComponent(0)), (int)(screen.getWindow().getY() + screen.getPanel().getY() + mousePosition.getComponent(1)));			
+			}
+			if(mousePosition.getComponent(1) < 0){
+				mousePosition.setComponent(1, screen.getWindow().HEIGHT - 25);
+				previousMousePosition.incrementComponent(1, screen.getWindow().HEIGHT - 25);
+				r.mouseMove((int)(screen.getWindow().getX() + screen.getPanel().getX() + mousePosition.getComponent(0)), (int)(screen.getWindow().getY() + screen.getPanel().getY() + mousePosition.getComponent(1)));			
+			}
+			else if(mousePosition.getComponent(1) > screen.getWindow().HEIGHT){
+				mousePosition.setComponent(1, 25);
+				previousMousePosition.incrementComponent(1, -screen.getWindow().HEIGHT + 25);
+				r.mouseMove((int)(screen.getWindow().getX() + screen.getPanel().getX() + mousePosition.getComponent(0)), (int)(screen.getWindow().getY() + screen.getPanel().getY() + mousePosition.getComponent(1)));			}
+		}
 	}
 
 	/**
