@@ -64,8 +64,8 @@ public class ScreenManager extends Manager{
 	@Override
 	public void init() {
 		//Set internals
-		width = 800;
-		height = 600;
+		width = 1200;
+		height = 900;
 
 		//Create the window
 		window = new JFrame("RatattackThing V 0.1");
