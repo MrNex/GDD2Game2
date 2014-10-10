@@ -92,10 +92,6 @@ public class PlayerFlyState extends ObjectState{
 			dotSign = dottedDifference/Math.abs(dottedDifference);
 		}
 		
-		//double sign = 0;
-		//if(xDiff != 0.0)
-			//sign = xDiff / Math.abs(xDiff);
-		//Get scalefactor as the square root of the difference
 		double scaleFactor = Math.abs(dottedDifference) * dotSign;
 
 		steeringVector.scalarMultiply(scaleFactor * turnSpeed);
