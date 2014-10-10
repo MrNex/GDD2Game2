@@ -57,6 +57,9 @@ public class Engine {
 		running = false;
 
 		
+		//Create currentState ****Moved here to fix null pointer exception****
+		currentState = new TestState();
+		
 		//Create managers
 		managers = new Manager[3];
 		
@@ -64,8 +67,7 @@ public class Engine {
 		managers[Managers.COLLISIONMANAGER.ordinal()] = new CollisionManager();
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
 		
-		//Create currentState ****Moved here to fix null pointer exception****
-		currentState = new TestState();
+		
 		
 		//Create timer for screen manager
 		drawTimer = new Timer(1000/60, new ActionListener(){

@@ -70,14 +70,33 @@ public class PlayerFlyState extends ObjectState{
 
 		//Create steering vector as copy of right vector
 		Vec steeringVector = new Vec(getPlayer().getRight());
+		
+		
+		Vec mouseVector = new Vec(2);
+		
 
 		//Find the difference in the previous and current mouse position on the x axis
 		double xDiff = input.getMousePosition().getComponent(0) - input.getPreviousMousePosition().getComponent(0);
-		double sign = 0;
-		if(xDiff != 0.0)
-			sign = xDiff / Math.abs(xDiff);
+		double yDiff = input.getMousePosition().getComponent(1) - input.getPreviousMousePosition().getComponent(1);
+		mouseVector.setComponent(0, xDiff);
+		mouseVector.setComponent(1, yDiff);
+		
+		//dot em
+		//take number determine + or -
+		//look at sign
+		//once you have those, do exactly what Nick does with Scale factor instead of xdiff do result of dot product
+		double dottedDifference = mouseVector.dot(steeringVector);
+		double dotSign = 0;
+		if(dottedDifference != 0.0)
+		{
+			dotSign = dottedDifference/Math.abs(dottedDifference);
+		}
+		
+		//double sign = 0;
+		//if(xDiff != 0.0)
+			//sign = xDiff / Math.abs(xDiff);
 		//Get scalefactor as the square root of the difference
-		double scaleFactor = Math.sqrt(Math.abs(xDiff)) * sign;
+		double scaleFactor = Math.sqrt(Math.abs(dottedDifference)) * dotSign;
 
 		steeringVector.scalarMultiply(scaleFactor * turnSpeed);
 
