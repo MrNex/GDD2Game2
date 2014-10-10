@@ -24,7 +24,7 @@ public class TestState extends EngineState {
 		super.init();
 		
 		//Create a gameobject
-		GameObject testObj = new MovableGameObject(520, 480, 20, 20, new Vec(0, -1));
+		GameObject testObj = new MovableGameObject(30, 340, 20, 20, new Vec(0, -1));
 
 		//Visuals
 		testObj.setShape(new Ellipse2D.Double());
@@ -43,7 +43,7 @@ public class TestState extends EngineState {
 
 
 		//Make another!
-		GameObject testObj2 = new GameObject(500, 500, 50, 50, new Vec(1, 0));
+		GameObject testObj2 = new GameObject(100, 550, 50, 50, new Vec(1, 0));
 
 		//Visuals
 		testObj2.setShape(new Rectangle2D.Double());
@@ -61,8 +61,12 @@ public class TestState extends EngineState {
 		addObj(testObj3);
 		
 		//Bounce test obj
-		GameObject bounceObj1 = bounceyWall(800,200,35,100,new Vec(1,0));
+		GameObject bounceObj1 = bounceyWall(800,100,35,100,new Vec(1,0));
 		addObj(bounceObj1);
+		GameObject bounceObj2 = bounceyWall(800, 300, 35, 100, new Vec(1,0));
+		addObj(bounceObj2);
+		GameObject bounceObj3 = bounceyWall(800, 500, 35, 100, new Vec(1,0));
+		addObj(bounceObj3);
 		
 	//Uncomment to see enemy behavior
 //		//Create an enemy
@@ -89,29 +93,87 @@ public class TestState extends EngineState {
 		GameObject upper = new GameObject(0,0,1200,20,new Vec(1,0));
 		upper.setShape(new Rectangle2D.Double());
 		upper.setVisible(true);
-		upper.setColor(Color.pink);
+		//upper.setColor(Color.pink);
+		upper.setColor(Color.black);
 		addObj(upper);
 		
 		//bottom boundary
 		GameObject bottom = new GameObject(0,685,1200,20,new Vec(1,0));
 		bottom.setShape(new Rectangle2D.Double());
 		bottom.setVisible(true);
-		bottom.setColor(Color.pink);
+		//bottom.setColor(Color.pink);
+		bottom.setColor(Color.black);
 		addObj(bottom);
 		
 		//left boundary
 		GameObject left = new GameObject(0,20,20,665,new Vec(1,0));
 		left.setShape(new Rectangle2D.Double());
 		left.setVisible(true);
-		left.setColor(Color.red);
+		//left.setColor(Color.red);
+		left.setColor(Color.black);
 		addObj(left);
 		
 		//right boundary
 		GameObject right = new GameObject(1180,20,20,665,new Vec(1,0));
 		right.setShape(new Rectangle2D.Double());
 		right.setVisible(true);
-		right.setColor(Color.red);
+		//right.setColor(Color.red);
+		right.setColor(Color.black);
 		addObj(right);
+		
+		
+		
+		GameObject midLine = new GameObject(700,335,70,30,new Vec(1,0));
+		midLine.setShape(new Rectangle2D.Double());
+		midLine.setVisible(true);
+		midLine.setColor(Color.black);
+		addObj(midLine);
+		
+		GameObject buildingTop = new GameObject(400, 200, 100,100, new Vec(1,0));
+		buildingTop.setShape(new Rectangle2D.Double());
+		buildingTop.setVisible(true);
+		buildingTop.setColor(Color.gray);
+		addObj(buildingTop);
+		
+		GameObject buildingBot = new GameObject(400, 400, 100,100, new Vec(1,0));
+		buildingBot.setShape(new Rectangle2D.Double());
+		buildingBot.setVisible(true);
+		buildingBot.setColor(Color.gray);
+		addObj(buildingBot);
+		
+		GameObject buildingLongMid = new GameObject(550, 250, 50,200, new Vec(1,0));
+		buildingLongMid.setShape(new Rectangle2D.Double());
+		buildingLongMid.setVisible(true);
+		buildingLongMid.setColor(Color.gray);
+		addObj(buildingLongMid);
+		
+		GameObject longTop = new GameObject(300, 20, 50,100, new Vec(1,0));
+		longTop.setShape(new Rectangle2D.Double());
+		longTop.setVisible(true);
+		longTop.setColor(Color.gray);
+		addObj(longTop);
+		
+		GameObject longBot = new GameObject(300, 585, 50,100, new Vec(1,0));
+		longBot.setShape(new Rectangle2D.Double());
+		longBot.setVisible(true);
+		longBot.setColor(Color.gray);
+		addObj(longBot);
+		
+		
+		
+		//hallway
+		GameObject hallTop = new GameObject(1000, 275, 200,50, new Vec(1,0));
+		hallTop.setShape(new Rectangle2D.Double());
+		hallTop.setVisible(true);
+		hallTop.setColor(Color.darkGray);
+		addObj(hallTop);
+		
+		GameObject hallBot = new GameObject(1000, 375, 200,50, new Vec(1,0));
+		hallBot.setShape(new Rectangle2D.Double());
+		hallBot.setVisible(true);
+		hallBot.setColor(Color.darkGray);
+		addObj(hallBot);
+		
 	}
 	
 	/**
@@ -124,10 +186,11 @@ public class TestState extends EngineState {
 	 * @return returns the object made
 	 */
 	public GameObject bounceyWall(int x, int y, int w, int h, Vec v){
-		GameObject obj = new GameObject(800,200,35,100,new Vec(1,0));
+		//GameObject obj = new GameObject(800,200,35,100,new Vec(1,0));
+		GameObject obj = new GameObject(x,y,w,h,v);
 		obj.setShape(new Rectangle2D.Double());
 		obj.setVisible(true);
-		obj.setColor(Color.green);
+		obj.setColor(Color.red);
 		obj.setTriggerable(true);
 		obj.addTrigger(new Trigger(){
 

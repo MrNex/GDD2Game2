@@ -65,7 +65,7 @@ public class ScreenManager extends Manager{
 	public void init() {
 		//Set internals
 		width = 1200;
-		height = 900;
+		height = 750;
 
 		//Create the window
 		window = new JFrame("RatattackThing V 0.1");
@@ -108,7 +108,8 @@ public class ScreenManager extends Manager{
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		//Set the background
-		backgroundColor = Color.white;
+		//backgroundColor = Color.white;
+		backgroundColor = Color.lightGray;
 
 		//Get listeners
 		KeyListener listener = (KeyListener)Engine.currentInstance.getManager(Engine.Managers.INPUTMANAGER);
