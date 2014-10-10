@@ -20,7 +20,7 @@ public class TestState extends EngineState {
 	@Override
 	public void init(){
 		super.init();
-
+		
 		//Create a gameobject
 		GameObject testObj = new MovableGameObject(520, 480, 20, 20, new Vec(0, -1));
 
@@ -59,6 +59,7 @@ public class TestState extends EngineState {
 		addObj(testObj3);
 		
 		
+		
 	//Uncomment to see enemy behavior
 //		//Create an enemy
 //		GameObject testObj4 = new MovableGameObject(300, 300, 50, 50, new Vec(0, 0));
@@ -74,7 +75,33 @@ public class TestState extends EngineState {
 //		
 //		addObj(testObj4);
 	}
-
+	
+	public void createTestLevel(){
+		//Walls to bound you
+		GameObject upper = new GameObject(0,0,1200,20,new Vec(1,0));
+		upper.setShape(new Rectangle2D.Double());
+		upper.setVisible(true);
+		upper.setColor(Color.pink);
+		addObj(upper);
+		
+		GameObject bottom = new GameObject(0,685,1200,20,new Vec(1,0));
+		bottom.setShape(new Rectangle2D.Double());
+		bottom.setVisible(true);
+		bottom.setColor(Color.pink);
+		addObj(bottom);
+		
+		GameObject left = new GameObject(0,20,20,665,new Vec(1,0));
+		left.setShape(new Rectangle2D.Double());
+		left.setVisible(true);
+		left.setColor(Color.red);
+		addObj(left);
+		
+		GameObject right = new GameObject(1180,20,20,665,new Vec(1,0));
+		right.setShape(new Rectangle2D.Double());
+		right.setVisible(true);
+		right.setColor(Color.red);
+		addObj(right);
+	}
 
 
 }

@@ -68,7 +68,7 @@ public class Engine {
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
 		
 		
-		
+		((TestState)currentState).createTestLevel();
 		//Create timer for screen manager
 		drawTimer = new Timer(1000/60, new ActionListener(){
 
