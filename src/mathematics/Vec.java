@@ -174,8 +174,10 @@ public class Vec {
 	 * @param v Vector to increment this vector by
 	 */
 	public void add(Vec v){
-		for(int i = 0; i < numComponents; i++){
-			components[i] += v.components[i];
+		if(sizeCheck(v)){
+			for(int i = 0; i < numComponents; i++){
+				components[i] += v.components[i];
+			}
 		}
 	}
 
@@ -184,14 +186,17 @@ public class Vec {
 	 * @param v1 Initial vector
 	 * @param v2 Vector to add to initial vector
 	 * @return Vector containing the sum of the two parameters(v1 + v2)
+	 * @return If v1 and v2 are of different size,
+	 * 	returns empty Vector 'sum' of size v1
 	 */
 	public static Vec add(Vec v1, Vec v2){
 		Vec sum = new Vec(v1.numComponents);
-
-		for(int i = 0; i < v1.numComponents; i++){
-			sum.components[i] = v1.components[i] + v2.components[i];
+		
+		if(sizeCheck(v1,v2)){
+			for(int i = 0; i < v1.numComponents; i++){
+				sum.components[i] = v1.components[i] + v2.components[i];
+			}
 		}
-
 		return sum;
 	}
 
@@ -200,8 +205,10 @@ public class Vec {
 	 * @param v The vector to take away from this vector.
 	 */
 	public void subtract(Vec v){
-		for(int i = 0; i < numComponents; i++){
-			components[i] -= v.components[i];
+		if(sizeCheck(v)){
+			for(int i = 0; i < numComponents; i++){
+				components[i] -= v.components[i];
+			}
 		}
 	}
 
@@ -210,12 +217,16 @@ public class Vec {
 	 * @param v1 The initial vector
 	 * @param v2 The vector to take away from v1
 	 * @return A vector containing the difference of the two parameters (V1 - V2).
+	 * @return If v1 and v2 are of different size,
+	 * 	returns empty Vector 'difference' of size v1
 	 */
 	public static Vec subtract(Vec v1, Vec v2){
 		Vec difference = new Vec(v1.numComponents);
 
-		for(int i = 0; i < v1.numComponents; i++){
-			difference.components[i] = v1.components[i] - v2.components[i];
+		if(sizeCheck(v1,v2)){
+			for(int i = 0; i < v1.numComponents; i++){
+				difference.components[i] = v1.components[i] - v2.components[i];
+			}
 		}
 
 		return difference;
@@ -235,12 +246,15 @@ public class Vec {
 	 * <p>Calculates the dot product of this vector with another vector</p>
 	 * @param v Vector to dot with
 	 * @return A double containing the scalar(dot) product of the vectors
+	 * @return if v and 'this' are of different sizes, returns 0.0
 	 */
 	public double dot(Vec v){
 		double prod = 0.0;
-
-		for(int i = 0; i < numComponents; i++){
-			prod += components[i] * v.components[i];
+		
+		if(sizeCheck(v)){
+			for(int i = 0; i < numComponents; i++){
+				prod += components[i] * v.components[i];
+			}
 		}
 
 		return prod;
@@ -251,12 +265,15 @@ public class Vec {
 	 * @param v1 The first vector being dotted
 	 * @param v2 The second vector being dotted
 	 * @return A double containing the scalar(dot) product of the vectors.
+	 * @return if v1 and v2 are of different sizes, returns 0.0
 	 */
 	public static double dot(Vec v1, Vec v2){
 		double prod = 0.0;
 
-		for(int i = 0; i < v1.numComponents; i++){
-			prod += v1.components[i] * v2.components[i];
+		if(sizeCheck(v1,v2)){
+			for(int i = 0; i < v1.numComponents; i++){
+				prod += v1.components[i] * v2.components[i];
+			}
 		}
 
 		return prod;
@@ -315,6 +332,31 @@ public class Vec {
 	public static Vec rotateByDeg(Vec v, double deg){
 		return Vec.rotate(v, (deg*Math.PI)/180.0);
 	}
+	
+	/**
+	 * @param v is the vector that 'this' is being operated by
+	 * @return returns true if v has same numComponents as 'this'
+	 */
+	private boolean sizeCheck(Vec v){
+		if(v.numComponents != this.numComponents){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param v1 vector to compare
+	 * @param v2 is the vector that v1 is being operated by
+	 * @return returns true if v1 has same numComponents as v2
+	 */
+	private static boolean sizeCheck(Vec v1, Vec v2){
+		if(v1.numComponents != v2.numComponents){
+			return false;
+		}
+		return true;
+	}
+	
+	
 	
 	/**
 	 * Creates a string representation of this vector
