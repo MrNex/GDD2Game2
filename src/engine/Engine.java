@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 import engine.manager.CollisionManager;
+import engine.manager.ContentManager;
 import engine.manager.InputManager;
 import engine.manager.Manager;
 import engine.manager.ScreenManager;
@@ -27,15 +28,15 @@ public class Engine {
 
 	//Enums
 	public enum Managers{
-		INPUTMANAGER, COLLISIONMANAGER, SCREENMANAGER
+		INPUTMANAGER, COLLISIONMANAGER, CONTENTMANAGER, SCREENMANAGER
 	}
-	
+
 	//Attributes
 	private boolean running;
 	private EngineState currentState;
 	private Manager[] managers;
 	private Timer drawTimer;
-	
+
 	/**
 	 * Constructs an engine
 	 */
@@ -50,24 +51,25 @@ public class Engine {
 	{
 		//Set this as current instance of engine
 		currentInstance = this;
-		
-		//Creation of currentState moved from here due to null pointer exception
 
 		//Set internal variables
 		running = false;
 
-		
-		//Create currentState ****Moved here to fix null pointer exception****
-		currentState = new TestState();
-		
+
+
+
 		//Create managers
-		managers = new Manager[3];
-		
+		managers = new Manager[4];
+
 		managers[Managers.INPUTMANAGER.ordinal()] = new InputManager();
 		managers[Managers.COLLISIONMANAGER.ordinal()] = new CollisionManager();
+		managers[Managers.CONTENTMANAGER.ordinal()] = new ContentManager();
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
-		
-		
+
+
+		//Create currentState
+		currentState = new TestState();
+
 		((TestState)currentState).createTestLevel();
 		//Create timer for screen manager
 		drawTimer = new Timer(1000/60, new ActionListener(){
@@ -77,12 +79,12 @@ public class Engine {
 				//Update screen
 				managers[Engine.Managers.SCREENMANAGER.ordinal()].update();
 			}
-			
+
 		});
-		
+
 		drawTimer.setRepeats(true);
-		
-		
+
+
 	}
 
 	/**
@@ -108,10 +110,10 @@ public class Engine {
 		{
 			//Update managers
 			managers[Managers.INPUTMANAGER.ordinal()].update();
-			
+
 			//TODO: Offload to statemanager to keep track of stateStack
 			currentState.update();
-			
+
 			//After objects update, update collisions.
 			managers[Managers.COLLISIONMANAGER.ordinal()].update();
 		}
@@ -125,7 +127,7 @@ public class Engine {
 	{
 		return currentState;
 	}
-	
+
 	/**
 	 * Gets an engine components manager.
 	 * Index values are as follows:

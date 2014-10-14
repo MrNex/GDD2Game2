@@ -10,6 +10,11 @@ import mathematics.*;
 import state.objectstates.ObjectState;
 import triggers.Trigger;
 
+/**
+ * Defines any object in the game
+ * @author Nex
+ *
+ */
 public class GameObject {
 
 	//Attributes
