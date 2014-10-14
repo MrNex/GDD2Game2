@@ -74,8 +74,15 @@ public class PlayerAimState extends ObjectState {
 		Vec rStart = attachedTo.getCenter();
 		Vec rEnd = new Vec(2);
 		rEnd.copy(lineStart);
-		rEnd.add(Vec.setMag(attachedTo.getRight(), 50));
+		rEnd.add(Vec.setMag(attachedTo.getRight(), 25));
 		g2d.drawLine((int)rStart.getComponent(0), (int)rStart.getComponent(1), (int)rEnd.getComponent(0), (int)rEnd.getComponent(1));
+		
+		g2d.setColor(Color.red);
+		Vec lStart = attachedTo.getCenter();
+		Vec lEnd = new Vec(2);
+		lEnd.copy(lineStart);
+		lEnd.add(Vec.setMag(attachedTo.getRight(), -25));
+		g2d.drawLine((int)lStart.getComponent(0), (int)lStart.getComponent(1), (int)lEnd.getComponent(0), (int)lEnd.getComponent(1));
 	}
 
 	@Override
