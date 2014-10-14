@@ -55,7 +55,8 @@ public class Engine {
 		//Set internal variables
 		running = false;
 
-
+		//Create currentState
+		currentState = new TestState();
 
 
 		//Create managers
@@ -67,8 +68,7 @@ public class Engine {
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
 
 
-		//Create currentState
-		currentState = new TestState();
+		
 
 		((TestState)currentState).createTestLevel();
 		//Create timer for screen manager
