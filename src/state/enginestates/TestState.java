@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import mathematics.Vec;
 import objects.GameObject;
 import objects.MovableGameObject;
+import state.objectstates.CaptiveRatState;
 import state.objectstates.EnemyState;
 import state.objectstates.PlayerAimState;
 import state.objectstates.PlayerFlyState;
@@ -159,7 +160,13 @@ public class TestState extends EngineState {
 		longBot.setColor(Color.gray);
 		addObj(longBot);
 		
-		
+		//Captive Rats
+		GameObject captiveRat1 = new GameObject(400, 350, 20, 20, new Vec());
+		captiveRat1.setShape(new Ellipse2D.Double());
+		captiveRat1.setVisible(true);
+		captiveRat1.setColor(Color.green);
+		captiveRat1.setState(new CaptiveRatState());
+		addObj(captiveRat1);
 		
 		//hallway
 		GameObject hallTop = new GameObject(1000, 275, 200,50, new Vec(1,0));
