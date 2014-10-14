@@ -2,10 +2,14 @@ package state.objectstates;
 
 import java.awt.Graphics2D;
 
+import engine.Engine;
 import objects.GameObject;
+import state.enginestates.EngineState;
 import triggers.Trigger;
 
 public class CaptiveRatState extends ObjectState {
+	
+	EngineState es = Engine.currentInstance.getCurrentState();
 
 	public CaptiveRatState() {
 		// TODO Auto-generated constructor stub
@@ -17,9 +21,8 @@ public class CaptiveRatState extends ObjectState {
 		attachedTo.addTrigger(new Trigger(){
 			@Override
 			public void action(GameObject triggeredBy) {
-				System.out.println("Triggered");
-				attachedTo.setRunning(false);
-				attachedTo.setVisible(false);
+				es.removeObj(attachedTo);
+				
 			}
 		});
 
