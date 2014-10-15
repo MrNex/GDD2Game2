@@ -2,35 +2,21 @@ package state.objectstates;
 
 import java.awt.Graphics2D;
 
-import engine.Engine;
 import objects.GameObject;
-import state.enginestates.EngineState;
-import triggers.Trigger;
 
-public class CaptiveRatState extends ObjectState {
-	
-	EngineState es = Engine.currentInstance.getCurrentState();
+/**
+ * A captive rat's state in which it disappears when the player touches it and adds to the player's score
+ * @author nygiants656
+ *
+ */
+public class CaptiveRatState extends CollectableState {
 
 	public CaptiveRatState() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void enter() {
-		attachedTo.setTriggerable(true);
-		attachedTo.addTrigger(new Trigger(){
-			@Override
-			public void action(GameObject triggeredBy) {
-				es.removeObj(attachedTo);
-				
-			}
-		});
-
-	}
-
-	@Override
 	public void update() {
-		
 	}
 
 	@Override
@@ -41,6 +27,14 @@ public class CaptiveRatState extends ObjectState {
 
 	@Override
 	public void exit() {
+	}
+	
+	/**
+	 * Removes the captive rat and adds to the player's score
+	 */
+	@Override
+	public void collect(GameObject triggeredBy) {
+		es.removeObj(attachedTo);
 	}
 
 }
