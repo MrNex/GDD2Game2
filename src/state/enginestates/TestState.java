@@ -40,7 +40,7 @@ public class TestState extends EngineState {
 		//Visuals
 		testObj.setShape(new Ellipse2D.Double());
 		testObj.setColor(Color.orange);
-		testObj.setImage(content.getImage("testImage"));
+		testObj.setImage(content.getImage("TestImg"));
 		testObj.setVisible(true);
 		//Behavior
 		testObj.setState(new PlayerAimState());
@@ -49,6 +49,15 @@ public class TestState extends EngineState {
 		testObj.setTriggerable(true);
 		//Add gameobject to current state
 		addObj(testObj);
+
+
+		//Captive Rats
+		GameObject captiveRat1 = new GameObject(400, 350, 20, 20, new Vec(1, 0));
+		captiveRat1.setShape(new Ellipse2D.Double());
+		captiveRat1.setVisible(true);
+		captiveRat1.setColor(Color.green);
+		captiveRat1.setState(new CaptiveRatState());
+		addObj(captiveRat1);
 
 
 		//Create bouncy walls
@@ -131,14 +140,6 @@ public class TestState extends EngineState {
 		longBot.setColor(Color.gray);
 		addObj(longBot);
 
-		//Captive Rats
-		GameObject captiveRat1 = new GameObject(400, 350, 20, 20, new Vec(1, 0));
-		captiveRat1.setShape(new Ellipse2D.Double());
-		captiveRat1.setVisible(true);
-		captiveRat1.setColor(Color.green);
-		captiveRat1.setState(new CaptiveRatState());
-		addObj(captiveRat1);
-
 		//hallway
 		GameObject hallTop = new GameObject(1000, 275, 200,50, new Vec(1,0));
 		hallTop.setShape(new Rectangle2D.Double());
@@ -177,33 +178,33 @@ public class TestState extends EngineState {
 			public void action(GameObject triggeredBy) {
 				// TODO Auto-generated method stub
 				triggeredBy.setState(new PlayerFlyState());
-				
+
 				//Algorithm outline for fixing "bounce direction" of bouncing platforms
 				/*
 				Vec collidedSide;
-				
+
 				//Get the movementSpeed of the player
 				double mvmtSpeed = ((PlayerFlyState)triggeredBy.getState()).getMovementSpeed();
-			
-				
+
+
 				//Determine which side of this object was hit
 				//If left or right side
 				if(Math.abs(attachedTo.getXPos() - (triggeredBy.getXPos() + triggeredBy.getWidth())) < mvmtSpeed 
 						|| Math.abs((attachedTo.getXPos() + attachedTo.getWidth()) - triggeredBy.getXPos()) < mvmtSpeed){
 					//TODO: Set collided side to vector representing the height
-					
-					
+
+
 				}
 				//Else top and bottom side
 				else{
 					//TODO: Set collided side to vector representing the width
 				}
-				
+
 				//Calculate angle between triggeredBy.forward and vector perpendicular to the collided side
-				
+
 				//Rotate triggeredBy's forward vector by 2 * aforementioned angle
-				*/
-				
+				 */
+
 				Vec force = triggeredBy.getForward();
 				force.normalize();
 				force.setMag(-1);

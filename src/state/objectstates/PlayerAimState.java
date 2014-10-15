@@ -64,11 +64,8 @@ public class PlayerAimState extends ObjectState {
 	@Override
 	public void drawEffects(Graphics2D g2d) {
 		g2d.setColor(Color.cyan);
-		//Vec lineStart = attachedTo.getCenter();
 		Vec lineStart = new Vec(2);
 		Vec lineEnd = new Vec(2);
-		//lineEnd.copy(lineStart);
-		//lineEnd.add(Vec.setMag(attachedTo.getForward(), 50));
 		lineEnd.setComponent(0, 1);
 		lineEnd.setMag(50);
 		g2d.drawLine((int)lineStart.getComponent(0), (int)lineStart.getComponent(1), (int)lineEnd.getComponent(0), (int)lineEnd.getComponent(1));
@@ -76,15 +73,15 @@ public class PlayerAimState extends ObjectState {
 		g2d.setColor(Color.red);
 		Vec rStart = new Vec(2);
 		Vec rEnd = new Vec(2);
-		rEnd.setComponent(0, 1);
-		rEnd.setMag(50);
+		rEnd.setComponent(1, 1);
+		rEnd.setMag(15);
 		g2d.drawLine((int)rStart.getComponent(0), (int)rStart.getComponent(1), (int)rEnd.getComponent(0), (int)rEnd.getComponent(1));
 		
 		g2d.setColor(Color.red);
 		Vec lStart = new Vec(2);
 		Vec lEnd = new Vec(2);
-		lEnd.setComponent(0, 1);
-		lEnd.setMag(50);
+		lEnd.setComponent(1, -1);
+		lEnd.setMag(15);
 		g2d.drawLine((int)lStart.getComponent(0), (int)lStart.getComponent(1), (int)lEnd.getComponent(0), (int)lEnd.getComponent(1));
 	}
 

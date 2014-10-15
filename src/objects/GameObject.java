@@ -332,14 +332,16 @@ public class GameObject {
 			//If they have an image
 			if(image != null){
 				/*
-				 * This is draw code previous to affine transformation implementation.
+				 * This is draw code for images previous to affine transformation implementation.
 				 * Keeping here for reference for a bit.
 				g2d.drawImage(image,
 						(int)position.getComponent(0), (int)position.getComponent(1), 
 						(int)(position.getComponent(0) + width), (int)(position.getComponent(1) + height), 
 						0, 0, image.getWidth(), image.getHeight(), null);
 				 */	
-				g2d.drawImage(image, (int)-width/2, (int)-height/2, (int)width, (int)height, 0, 0, image.getWidth(), image.getHeight(), null);
+				
+				//Note to self: drawImage does not use a position, width and height. Instead it uses a top left corner position and a bottom right corner position.
+				g2d.drawImage(image, (int)(-1*(width/2)), (int)(-1*(height/2)), (int)width/2, (int)height/2, 0, 0, image.getWidth(), image.getHeight(), null);
 			}
 			else{
 				//Set the color

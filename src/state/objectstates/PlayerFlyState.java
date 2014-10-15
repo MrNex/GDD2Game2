@@ -1,5 +1,6 @@
 package state.objectstates;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import mathematics.Vec;
@@ -119,7 +120,26 @@ public class PlayerFlyState extends ObjectState{
 
 	@Override
 	public void drawEffects(Graphics2D g2d) {
-		// TODO Auto-generated method stub
+		g2d.setColor(Color.cyan);
+		Vec lineStart = new Vec(2);
+		Vec lineEnd = new Vec(2);
+		lineEnd.setComponent(0, 1);
+		lineEnd.setMag(50);
+		g2d.drawLine((int)lineStart.getComponent(0), (int)lineStart.getComponent(1), (int)lineEnd.getComponent(0), (int)lineEnd.getComponent(1));
+	
+		g2d.setColor(Color.red);
+		Vec rStart = new Vec(2);
+		Vec rEnd = new Vec(2);
+		rEnd.setComponent(1, 1);
+		rEnd.setMag(15);
+		g2d.drawLine((int)rStart.getComponent(0), (int)rStart.getComponent(1), (int)rEnd.getComponent(0), (int)rEnd.getComponent(1));
+		
+		g2d.setColor(Color.red);
+		Vec lStart = new Vec(2);
+		Vec lEnd = new Vec(2);
+		lEnd.setComponent(1, -1);
+		lEnd.setMag(15);
+		g2d.drawLine((int)lStart.getComponent(0), (int)lStart.getComponent(1), (int)lEnd.getComponent(0), (int)lEnd.getComponent(1));
 
 	}
 
