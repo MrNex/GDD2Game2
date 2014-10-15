@@ -170,6 +170,14 @@ public class GameObject {
 			newState.enter();
 		}
 	}
+	
+	/**
+	 * Gets the state of this gameObject
+	 * @return The state currently attached to thisgameObject
+	 */
+	public ObjectState getState(){
+		return currentState;
+	}
 
 	/**
 	 * Gets the visibility of this gameobject
