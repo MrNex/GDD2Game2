@@ -17,6 +17,7 @@ public class CaptiveRatState extends CollectableState {
 
 	@Override
 	public void update() {
+		
 	}
 
 	@Override

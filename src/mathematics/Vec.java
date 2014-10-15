@@ -168,6 +168,14 @@ public class Vec {
 		returnVector.normalize();
 		return returnVector;
 	}
+	
+	/**
+	 * Gets the angle in the XY plane from the positive X axis that this vector is pointing in.
+	 * @return The angle (in radians) from the positive X axis that this vector points
+	 */
+	public double getAngle(){
+		return Math.atan2(components[1], components[0]);
+	}
 
 	/**
 	 * <p>Increments this Vector by another Vector</p>

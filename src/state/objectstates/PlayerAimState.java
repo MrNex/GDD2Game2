@@ -64,24 +64,27 @@ public class PlayerAimState extends ObjectState {
 	@Override
 	public void drawEffects(Graphics2D g2d) {
 		g2d.setColor(Color.cyan);
-		Vec lineStart = attachedTo.getCenter();
+		//Vec lineStart = attachedTo.getCenter();
+		Vec lineStart = new Vec(2);
 		Vec lineEnd = new Vec(2);
-		lineEnd.copy(lineStart);
-		lineEnd.add(Vec.setMag(attachedTo.getForward(), 50));
+		//lineEnd.copy(lineStart);
+		//lineEnd.add(Vec.setMag(attachedTo.getForward(), 50));
+		lineEnd.setComponent(0, 1);
+		lineEnd.setMag(50);
 		g2d.drawLine((int)lineStart.getComponent(0), (int)lineStart.getComponent(1), (int)lineEnd.getComponent(0), (int)lineEnd.getComponent(1));
 	
 		g2d.setColor(Color.red);
-		Vec rStart = attachedTo.getCenter();
+		Vec rStart = new Vec(2);
 		Vec rEnd = new Vec(2);
-		rEnd.copy(lineStart);
-		rEnd.add(Vec.setMag(attachedTo.getRight(), 25));
+		rEnd.setComponent(0, 1);
+		rEnd.setMag(50);
 		g2d.drawLine((int)rStart.getComponent(0), (int)rStart.getComponent(1), (int)rEnd.getComponent(0), (int)rEnd.getComponent(1));
 		
 		g2d.setColor(Color.red);
-		Vec lStart = attachedTo.getCenter();
+		Vec lStart = new Vec(2);
 		Vec lEnd = new Vec(2);
-		lEnd.copy(lineStart);
-		lEnd.add(Vec.setMag(attachedTo.getRight(), -25));
+		lEnd.setComponent(0, 1);
+		lEnd.setMag(50);
 		g2d.drawLine((int)lStart.getComponent(0), (int)lStart.getComponent(1), (int)lEnd.getComponent(0), (int)lEnd.getComponent(1));
 	}
 

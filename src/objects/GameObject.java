@@ -2,6 +2,7 @@ package objects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.RectangularShape;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class GameObject {
 	protected ObjectState currentState;
 	protected boolean triggerable;
 	protected ArrayList<Trigger> triggers;
-	
+
 	/**
 	 * Creates a basic GameObject with a position and size
 	 * GameObject defaults to not running and not visible with a null state
@@ -41,11 +42,11 @@ public class GameObject {
 	public GameObject(double xx, double yy, double w, double h, Vec fwd) {
 		//Set designated attributes
 		position = new Vec(xx, yy);
-		
+
 		//Set directional vectors
 		forward = fwd;
 		right = Vec.rotate(forward, Math.PI/2);
-		
+
 
 		width = w;
 		height = h;
@@ -60,10 +61,10 @@ public class GameObject {
 		color = Color.black;
 
 		image = null;
-		
+
 		triggerable = false;
-		
-		
+
+
 	}
 
 	//Accessors
@@ -98,7 +99,7 @@ public class GameObject {
 	public double getYPos(){
 		return position.getComponent(1);
 	}
-	
+
 	/**
 	 * Gets the width of the gameobject's bounding box
 	 * @return a double containing the width of the bounding box
@@ -106,7 +107,7 @@ public class GameObject {
 	public double getWidth(){
 		return width;
 	}
-	
+
 	/**
 	 * Gets the height of the gameobjects bounding box
 	 * @return the height of the bounding box
@@ -114,7 +115,7 @@ public class GameObject {
 	public double getHeight(){
 		return height;
 	}
-	
+
 	/**
 	 * Gets a position vector representing the center of this object
 	 * @return A vector holding the coordinates of the exact center of this object
@@ -134,7 +135,7 @@ public class GameObject {
 	public Vec getForward(){
 		return forward;
 	}
-	
+
 	/**
 	 * Sets the forward vector of the gameObject
 	 * @param v Vector representing a new forward vector.
@@ -143,7 +144,7 @@ public class GameObject {
 		forward = v;
 		right = Vec.rotate(forward, Math.PI/2);
 	}
-	
+
 	/**
 	 * Gets the right vector
 	 * @return The right vector.
@@ -151,7 +152,7 @@ public class GameObject {
 	public Vec getRight(){
 		return right;
 	}
-	
+
 	/**
 	 * Sets the state of an {@link GameObject}.
 	 * 
@@ -170,7 +171,7 @@ public class GameObject {
 			newState.enter();
 		}
 	}
-	
+
 	/**
 	 * Gets the state of this gameObject
 	 * @return The state currently attached to thisgameObject
@@ -186,7 +187,7 @@ public class GameObject {
 	public boolean isVisible(){
 		return visible;
 	}
-	
+
 	/**
 	 * Sets the visibility of this gameObject
 	 * @param isVisible is the object visible
@@ -202,7 +203,7 @@ public class GameObject {
 	public boolean isRunning(){
 		return running;
 	}
-	
+
 	/**
 	 * Sets whether or not the gameObject is running
 	 * @param isRunning Is the gameObject running
@@ -250,7 +251,7 @@ public class GameObject {
 		setShape(newShape);
 		setColor(color);
 	}
-	
+
 	/**
 	 * Gets whether this object is triggerable or not
 	 * @return True if triggerable, false if not triggerable
@@ -258,7 +259,7 @@ public class GameObject {
 	public boolean isTriggerable(){
 		return triggerable;
 	}
-	
+
 	/**
 	 * Sets whether this object is triggerable or not.
 	 * IF set to true the arrayList of triggers is initialized.
@@ -272,7 +273,7 @@ public class GameObject {
 			triggers = new ArrayList<Trigger>();
 		}
 	}
-	
+
 	/**
 	 * Adds a trigger to this gameObject
 	 * @param triggerToAdd The trigger being added
@@ -281,7 +282,7 @@ public class GameObject {
 		triggers.add(triggerToAdd);
 		triggerToAdd.setAttachedObj(this);
 	}
-	
+
 	/**
 	 * Removes a trigger from this gameObject
 	 * @param triggerToRemove the trigger being removed
@@ -289,7 +290,7 @@ public class GameObject {
 	public void removeTrigger(Trigger triggerToRemove){
 		triggers.remove(triggerToRemove);
 	}
-	
+
 	/**
 	 * Gets the list of triggers attached to this object
 	 * @return An arrayList of all triggers attached to this object
@@ -315,15 +316,30 @@ public class GameObject {
 	 * If the gameobject is visible AND it is running, the current state's drawEffects method will also be called.
 	 * @param g2d Graphics object to draw with
 	 */
-	public void draw(Graphics2D g2d){
+	public void draw(Graphics2D g2d){		
+
+		//Save affine transformation
+		AffineTransform savedState = g2d.getTransform();
+
+		//Construct the local system
+		AffineTransform localCoordinateSystem = constructLocalSystem();
+
+		//Set the affine transformation
+		g2d.setTransform(localCoordinateSystem);
+
 		if(visible)
 		{
 			//If they have an image
 			if(image != null){
+				/*
+				 * This is draw code previous to affine transformation implementation.
+				 * Keeping here for reference for a bit.
 				g2d.drawImage(image,
 						(int)position.getComponent(0), (int)position.getComponent(1), 
 						(int)(position.getComponent(0) + width), (int)(position.getComponent(1) + height), 
 						0, 0, image.getWidth(), image.getHeight(), null);
+				 */	
+				g2d.drawImage(image, (int)-width/2, (int)-height/2, (int)width, (int)height, 0, 0, image.getWidth(), image.getHeight(), null);
 			}
 			else{
 				//Set the color
@@ -331,24 +347,55 @@ public class GameObject {
 				//Fill the shape
 				g2d.fill(shape);
 			}
-			
+
 			//If this obj is running
 			if(isRunning()){
 				//Draw it's state
 				currentState.drawEffects(g2d);
 			}
 		}
+
+		//Revert back to saved coordinate system.
+		g2d.setTransform(savedState);
 	}
 
 	/**
-	 * Updates the shape to match the size and position of this gameObject
+	 * Uses this objects position and forward vector
+	 * To construct an affine transformation that, if applied, will set the current
+	 * coordinate system to be centered on this gameObject and rotated in the direction of this gameObject's
+	 * forward vector
+	 * @return An affine transform representing this gameObject's current coordinate system.
 	 */
-	public void updateShape(){
-		if(shape != null)
-			shape.setFrame(position.getComponent(0), position.getComponent(1), width, height);
+	private AffineTransform constructLocalSystem(){
+		//Construct affine transformation
+		AffineTransform transform = new AffineTransform();
+
+		//translation the affine transformation to the center position of where this gameObject should be
+		transform.translate(position.getComponent(0) + (width / 2), position.getComponent(1) + (height / 2));
+
+		//Get angle of rotation
+		double angle = forward.getAngle();
+		//Rotate the affine transformation by the angle that this gameObject is rotated
+		transform.rotate(angle);
+		
+		return transform;
 	}
 
-	
+	/**
+	 * Updates the shape to have it's center at 0, 0
+	 * while adhering to this gameObject's width and height.
+	 * 
+	 * This method no longer positions the shape, instead it simply centers the object on the origin
+	 * So that when constructLocalSystem() is called the object is translated and rotated to it's correct position.
+	 */
+	public void updateShape(){
+		if(shape != null){
+			//shape.setFrame(position.getComponent(0), position.getComponent(1), width, height);
+			shape.setFrame(-width / 2, -height / 2, width, height);
+		}
+	}
+
+
 	/**
 	 * Checks if the bounding box of this obj is intersecting the bounding box of another obj
 	 * @param obj GameObject to check with
