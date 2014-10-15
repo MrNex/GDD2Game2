@@ -13,6 +13,13 @@ import engine.Engine;
 import engine.Engine.Managers;
 import mathematics.Vec;
 
+/**
+ * Defines a class which observes and records both Keyboard and mouse input.
+ * Accepted key presses only includes keys with ascii values between 0 and 256
+ * Queries mouse for number of buttons before initializing mouse Buttons array.
+ * @author Nex
+ *
+ */
 public class InputManager extends Manager implements KeyListener, MouseListener{
 
 	//Attributes
