@@ -41,5 +41,5 @@ public abstract class Trigger {
 	 * Defines the action taken when this trigger is triggered
 	 * @param triggeredBy The gameobject which triggered this trigger.
 	 */
-	public abstract void action(GameObject triggeredBy);
+	public abstract void action(GameObject triggeredBy, CollisionBuffer cBuff);
 }

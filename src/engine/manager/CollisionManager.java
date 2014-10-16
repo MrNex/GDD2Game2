@@ -51,8 +51,7 @@ public class CollisionManager extends Manager {
 					if(obj1 == obj2) continue;
 					
 					//Get the collision buffer!
-					//CollisionBuffer cBuff = new CollisionBuffer(obj1, obj2);
-					
+					CollisionBuffer cBuff = new CollisionBuffer(obj1, obj2);
 					
 					if(obj1.isColliding(obj2)){
 						((MovableGameObject)obj1).revert();
@@ -61,7 +60,7 @@ public class CollisionManager extends Manager {
 						if(obj1.isTriggerable()){
 							//For each trigger it has
 							for(Trigger t : obj1.getTriggers()){
-								t.action(obj2);
+								t.action(obj2, cBuff);
 							}
 						}
 						
@@ -69,7 +68,7 @@ public class CollisionManager extends Manager {
 						if(obj2.isTriggerable()){
 							//pull each trigger it has
 							for(Trigger t : obj2.getTriggers()){
-								t.action(obj1);
+								t.action(obj1, cBuff);
 							}
 						}//Ends if obj2 is triggerable
 					}//Ends if colliding

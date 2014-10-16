@@ -3,6 +3,7 @@ package state.objectstates;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import buffer.CollisionBuffer;
 import mathematics.Vec;
 import objects.GameObject;
 import objects.MovableGameObject;
@@ -54,7 +55,7 @@ public class PlayerFlyState extends ObjectState{
 		attachedTo.addTrigger(new Trigger(){
 
 			@Override
-			public void action(GameObject triggeredBy) {
+			public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
 				attachedTo.setState(new PlayerAimState());
 				attachedTo.removeTrigger(this);
 

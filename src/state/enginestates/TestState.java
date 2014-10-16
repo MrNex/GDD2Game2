@@ -10,11 +10,12 @@ import mathematics.Vec;
 import objects.GameObject;
 import objects.MovableGameObject;
 import state.objectstates.CaptiveRatState;
-import state.objectstates.EnemyState;
+
 import state.objectstates.PlayerAimState;
 import state.objectstates.PlayerFlyState;
-import state.objectstates.PlayerState;
+
 import triggers.Trigger;
+import buffer.CollisionBuffer;
 
 public class TestState extends EngineState {
 
@@ -175,39 +176,44 @@ public class TestState extends EngineState {
 
 			@Override
 			//triggered event
-			public void action(GameObject triggeredBy) {
+			public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
 				// TODO Auto-generated method stub
 				triggeredBy.setState(new PlayerFlyState());
+				
+				Vec force;
+				Vec reflect;
 
 				//Algorithm outline for fixing "bounce direction" of bouncing platforms
-				/*
-				Vec collidedSide;
-
-				//Get the movementSpeed of the player
-				double mvmtSpeed = ((PlayerFlyState)triggeredBy.getState()).getMovementSpeed();
-
-
-				//Determine which side of this object was hit
-				//If left or right side
-				if(Math.abs(attachedTo.getXPos() - (triggeredBy.getXPos() + triggeredBy.getWidth())) < mvmtSpeed 
-						|| Math.abs((attachedTo.getXPos() + attachedTo.getWidth()) - triggeredBy.getXPos()) < mvmtSpeed){
-					//TODO: Set collided side to vector representing the height
-
-
+				//Determine if triggeredBy is cBuff's obj1 or obj2
+				if(triggeredBy == cBuff.obj1){
+					//Get the reflect vector, the collided side of the gameObject attached to the trigger rotated by 90 degrees CCW
+					reflect = Vec.rotate(cBuff.obj2CollidedSide, Math.PI/2.0);
 				}
-				//Else top and bottom side
 				else{
-					//TODO: Set collided side to vector representing the width
+					reflect = Vec.rotate(cBuff.obj1CollidedSide, Math.PI/2.0);
 				}
 
-				//Calculate angle between triggeredBy.forward and vector perpendicular to the collided side
-
-				//Rotate triggeredBy's forward vector by 2 * aforementioned angle
-				 */
-
-				Vec force = triggeredBy.getForward();
-				force.normalize();
+				//Reflect triggeredBy's reverse forward vector over reflect
+				//Reverse forward vector
+				force = triggeredBy.getForward();
 				force.setMag(-1);
+				
+				//Make sure both are normalized
+				reflect.normalize();
+				force.normalize();
+				
+				//Get angle between
+				double aBetween = Math.atan2(reflect.getComponent(1), reflect.getComponent(0)) - Math.atan2(force.getComponent(1), force.getComponent(0));
+			
+				//Multiply by 2
+				aBetween *= 2;
+				
+				//Rotate forward vector
+				force.rotate(aBetween);
+				
+				force.normalize();
+				
+				//Set triggeredBy's forward to force
 				triggeredBy.setForward(force);
 			}
 		});

@@ -31,7 +31,7 @@ public abstract class CollectableState extends ObjectState {
 		attachedTo.setTriggerable(true);
 		attachedTo.addTrigger(new Trigger(){
 			@Override
-			public void action(GameObject triggeredBy) {
+			public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
 				if (triggeredBy.getState() instanceof PlayerAimState) {
 					collect(triggeredBy);
 				}
