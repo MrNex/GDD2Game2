@@ -4,6 +4,8 @@ import objects.GameObject;
 import objects.MovableGameObject;
 import triggers.Trigger;
 import engine.Engine;
+import buffer.CollisionBuffer;
+
 
 /**
  * CollisionManager will tap into the current list of objects
@@ -47,6 +49,10 @@ public class CollisionManager extends Manager {
 				
 				for(GameObject obj2 : Engine.currentInstance.getCurrentState().getObjList()){
 					if(obj1 == obj2) continue;
+					
+					//Get the collision buffer!
+					//CollisionBuffer cBuff = new CollisionBuffer(obj1, obj2);
+					
 					
 					if(obj1.isColliding(obj2)){
 						((MovableGameObject)obj1).revert();

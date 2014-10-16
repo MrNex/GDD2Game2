@@ -7,6 +7,8 @@ import objects.GameObject;
 import state.enginestates.EngineState;
 import triggers.Trigger;
 
+import buffer.CollisionBuffer;
+
 /**
  * An abstract class that extends ObjectState to separate collectable objects from the other objects
  * and determine what they do when they are collected

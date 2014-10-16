@@ -28,7 +28,7 @@ public class TestState extends EngineState {
 	}
 
 	/**
-	 * 
+	 * Creates the test state's test level!
 	 */
 	public void createTestLevel(){
 		//Get reference to content manager

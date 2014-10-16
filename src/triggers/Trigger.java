@@ -1,5 +1,6 @@
 package triggers;
 
+import buffer.CollisionBuffer;
 import objects.GameObject;
 
 /**
