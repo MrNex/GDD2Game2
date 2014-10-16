@@ -5,15 +5,14 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 import engine.Engine;
+import engine.manager.CameraManager;
 import engine.manager.ContentManager;
 import mathematics.Vec;
 import objects.GameObject;
 import objects.MovableGameObject;
 import state.objectstates.CaptiveRatState;
-
 import state.objectstates.PlayerAimState;
 import state.objectstates.PlayerFlyState;
-
 import triggers.Trigger;
 import buffer.CollisionBuffer;
 
@@ -50,6 +49,9 @@ public class TestState extends EngineState {
 		testObj.setTriggerable(true);
 		//Add gameobject to current state
 		addObj(testObj);
+		
+		//Set camera to follow player
+		((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow(testObj.getPos());
 
 
 		//Captive Rats

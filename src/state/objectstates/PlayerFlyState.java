@@ -119,6 +119,10 @@ public class PlayerFlyState extends ObjectState{
 		attachedTo.updateShape();
 	}
 
+	/**
+	 * Draws the players forward, right, and -right vectors to outline the players coordinate system.
+	 * Originally implemented for debugging but I find it is actually helpful to gamePlay.
+	 */
 	@Override
 	public void drawEffects(Graphics2D g2d) {
 		g2d.setColor(Color.cyan);

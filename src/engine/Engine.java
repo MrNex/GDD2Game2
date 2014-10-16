@@ -5,11 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import engine.manager.CollisionManager;
-import engine.manager.ContentManager;
-import engine.manager.InputManager;
-import engine.manager.Manager;
-import engine.manager.ScreenManager;
+import engine.manager.*;
 import state.*;
 import state.enginestates.EngineState;
 import state.enginestates.TestState;
@@ -28,7 +24,7 @@ public class Engine {
 
 	//Enums
 	public enum Managers{
-		INPUTMANAGER, COLLISIONMANAGER, CONTENTMANAGER, SCREENMANAGER
+		INPUTMANAGER, COLLISIONMANAGER, CONTENTMANAGER, CAMERAMANAGER, SCREENMANAGER
 	}
 
 	//Attributes
@@ -60,11 +56,12 @@ public class Engine {
 
 
 		//Create managers
-		managers = new Manager[4];
+		managers = new Manager[5];
 
 		managers[Managers.INPUTMANAGER.ordinal()] = new InputManager();
 		managers[Managers.COLLISIONMANAGER.ordinal()] = new CollisionManager();
 		managers[Managers.CONTENTMANAGER.ordinal()] = new ContentManager();
+		managers[Managers.CAMERAMANAGER.ordinal()] = new CameraManager();
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
 
 
@@ -78,6 +75,8 @@ public class Engine {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				//Update camera
+				managers[Engine.Managers.CAMERAMANAGER.ordinal()].update();
 				//Update screen
 				managers[Engine.Managers.SCREENMANAGER.ordinal()].update();
 			}

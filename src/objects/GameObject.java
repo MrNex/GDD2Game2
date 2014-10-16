@@ -319,27 +319,18 @@ public class GameObject {
 	public void draw(Graphics2D g2d){		
 
 		//Save affine transformation
-		AffineTransform savedState = g2d.getTransform();
+		AffineTransform savedState = new AffineTransform(g2d.getTransform());
 
 		//Construct the local system
-		AffineTransform localCoordinateSystem = constructLocalSystem();
+		AffineTransform localCoordinateSystem = constructLocalSystem(g2d.getTransform());
 
 		//Set the affine transformation
 		g2d.setTransform(localCoordinateSystem);
 
-		if(visible)
-		{
+		if(visible){
+			
 			//If they have an image
-			if(image != null){
-				/*
-				 * This is draw code for images previous to affine transformation implementation.
-				 * Keeping here for reference for a bit.
-				g2d.drawImage(image,
-						(int)position.getComponent(0), (int)position.getComponent(1), 
-						(int)(position.getComponent(0) + width), (int)(position.getComponent(1) + height), 
-						0, 0, image.getWidth(), image.getHeight(), null);
-				 */	
-				
+			if(image != null){				
 				//Note to self: drawImage does not use a position, width and height. Instead it uses a top left corner position and a bottom right corner position.
 				g2d.drawImage(image, (int)(-1*(width/2)), (int)(-1*(height/2)), (int)width/2, (int)height/2, 0, 0, image.getWidth(), image.getHeight(), null);
 			}
@@ -365,12 +356,13 @@ public class GameObject {
 	 * Uses this objects position and forward vector
 	 * To construct an affine transformation that, if applied, will set the current
 	 * coordinate system to be centered on this gameObject and rotated in the direction of this gameObject's
-	 * forward vector
+	 * forward vector, while still translated to the position of the camera
+	 * @param currentSystem An affineTransformation representing the current transformation stack on the renderer
 	 * @return An affine transform representing this gameObject's current coordinate system.
 	 */
-	private AffineTransform constructLocalSystem(){
+	private AffineTransform constructLocalSystem(AffineTransform currentSystem){
 		//Construct affine transformation
-		AffineTransform transform = new AffineTransform();
+		AffineTransform transform = currentSystem;
 
 		//translation the affine transformation to the center position of where this gameObject should be
 		transform.translate(position.getComponent(0) + (width / 2), position.getComponent(1) + (height / 2));

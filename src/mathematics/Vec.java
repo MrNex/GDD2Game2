@@ -249,6 +249,22 @@ public class Vec {
 			components[i] *= scaleFactor;
 		}
 	}
+	
+	/**
+	 * Scales a given vector by a specified scale value
+	 * @param v Vector to scale
+	 * @param scaleFactor amount to scale by
+	 * @return A NEW vector which represents the components of v scaled by the scaleFactor
+	 */
+	public static Vec scalarMultiply(Vec v, double scaleFactor){
+		Vec returnVec = new Vec(v.numComponents);
+		returnVec.copy(v);
+		for(int i = 0; i < v.numComponents; i++){
+			returnVec.components[i] *= scaleFactor;
+		}
+		
+		return returnVec;
+	}
 
 	/**
 	 * <p>Calculates the dot product of this vector with another vector</p>

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import objects.GameObject;
 import engine.Engine;
+import engine.Engine.Managers;
 
 /**
  * A {@link Manager} which takes care of drawing objects in
@@ -89,7 +90,9 @@ public class ScreenManager extends Manager{
 				//Cast to graphics2d
 				Graphics2D g2d = (Graphics2D)g;
 
-
+				//Construct camera coordinate system
+				CameraManager cam = (CameraManager)Engine.currentInstance.getManager(Managers.CAMERAMANAGER);
+				cam.constructCameraCoordinateSystem(g2d);
 
 				ArrayList<GameObject> drawList = Engine.currentInstance.getCurrentState().getObjList();
 
@@ -97,6 +100,9 @@ public class ScreenManager extends Manager{
 				for(GameObject obj : drawList){
 					obj.draw(g2d);
 				}
+				
+				//Destruct camera coordinate system
+				cam.destructCameraCoordinateSystem(g2d);
 			}
 		};
 
