@@ -18,8 +18,10 @@ import buffer.CollisionBuffer;
 
 public class TestState extends EngineState {
 
+	private boolean swap;
 	public TestState(){
 		super();
+		swap = false;
 	}
 
 	@Override
@@ -63,121 +65,173 @@ public class TestState extends EngineState {
 	 */
 	public void firstSection(){
 		//Captive Rats
-				GameObject captiveRat1 = new GameObject(400, 350, 20, 20, new Vec(1, 0));
-				captiveRat1.setShape(new Ellipse2D.Double());
-				captiveRat1.setVisible(true);
-				captiveRat1.setColor(Color.green);
-				captiveRat1.setState(new CaptiveRatState());
-				addObj(captiveRat1);
+		GameObject captiveRat1 = new GameObject(400, 350, 20, 20, new Vec(1, 0));
+		captiveRat1.setShape(new Ellipse2D.Double());
+		captiveRat1.setVisible(true);
+		captiveRat1.setColor(Color.orange);
+		captiveRat1.setState(new CaptiveRatState());
+		addObj(captiveRat1);
 
 
-				//Create bouncy walls
-				//Bounce test obj
-				GameObject bounceObj1 = bounceyWall(800,100,35,100,new Vec(1,0));
-				addObj(bounceObj1);
-				GameObject bounceObj2 = bounceyWall(800, 300, 35, 100, new Vec(1,0));
-				addObj(bounceObj2);
-				GameObject bounceObj3 = bounceyWall(800, 500, 35, 100, new Vec(1,0));
-				addObj(bounceObj3);
+		//Create bouncy walls
+		//Bounce test obj
+		GameObject bounceObj1 = bounceyWall(800,100,35,100,new Vec(1,0));
+		addObj(bounceObj1);
+		GameObject bounceObj2 = bounceyWall(800, 300, 35, 100, new Vec(1,0));
+		addObj(bounceObj2);
+		GameObject bounceObj3 = bounceyWall(800, 500, 35, 100, new Vec(1,0));
+		addObj(bounceObj3);
 
-				//Walls to bound the screen
-				//Top boundary
-				GameObject upper = borderWall(0,0,1200,20,new Vec(1,0));
-				addObj(upper);
+		//Walls to bound the screen
+		//Top boundary
+		GameObject upper = borderWall(0,0,1200,20,new Vec(1,0));
+		addObj(upper);
 
-				//bottom boundary
-				GameObject bottom = borderWall(0,685,1200,20,new Vec(1,0));
-				addObj(bottom);
+		//bottom boundary
+		GameObject bottom = borderWall(0,685,1200,20,new Vec(1,0));
+		addObj(bottom);
 
-				//left boundary
-				GameObject left = borderWall(0,20,20,665,new Vec(1,0));
-				addObj(left);
+		//left boundary
+		GameObject left = borderWall(0,20,20,665,new Vec(1,0));
+		addObj(left);
 
-				//right boundary
-				GameObject right = borderWall(1180,20,20,300,new Vec(1,0));
-				addObj(right);
-				GameObject rightb = borderWall(1180,380,20,320,new Vec(1,0));
-				addObj(rightb);
+		//right boundary
+		GameObject right = borderWall(1180,20,20,300,new Vec(1,0));
+		addObj(right);
+		GameObject rightb = borderWall(1180,380,20,320,new Vec(1,0));
+		addObj(rightb);
 
 
 
-				GameObject midLine = new GameObject(700,335,70,30,new Vec(1,0));
-				midLine.setShape(new Rectangle2D.Double());
-				midLine.setVisible(true);
-				midLine.setColor(Color.black);
-				addObj(midLine);
+		GameObject midLine = wall(700,335,70,30,new Vec(1,0));
+		addObj(midLine);
 
-				GameObject buildingTop = new GameObject(400, 200, 100,100, new Vec(1,0));
-				buildingTop.setShape(new Rectangle2D.Double());
-				buildingTop.setVisible(true);
-				buildingTop.setColor(Color.gray);
-				addObj(buildingTop);
+		GameObject buildingTop = wall(400, 200, 100,100, new Vec(1,0));
+		addObj(buildingTop);
 
-				GameObject buildingBot = new GameObject(400, 400, 100,100, new Vec(1,0));
-				buildingBot.setShape(new Rectangle2D.Double());
-				buildingBot.setVisible(true);
-				buildingBot.setColor(Color.gray);
-				addObj(buildingBot);
+		GameObject buildingBot = wall(400, 400, 100,100, new Vec(1,0));;
+		addObj(buildingBot);
 
-				GameObject buildingLongMid = new GameObject(550, 250, 50,200, new Vec(1,0));
-				buildingLongMid.setShape(new Rectangle2D.Double());
-				buildingLongMid.setVisible(true);
-				buildingLongMid.setColor(Color.gray);
-				addObj(buildingLongMid);
+		GameObject buildingLongMid = wall(550, 250, 50,200, new Vec(1,0));;
+		addObj(buildingLongMid);
 
-				GameObject longTop = new GameObject(300, 20, 50,100, new Vec(1,0));
-				longTop.setShape(new Rectangle2D.Double());
-				longTop.setVisible(true);
-				longTop.setColor(Color.gray);
-				addObj(longTop);
+		GameObject longTop = wall(300, 20, 50,100, new Vec(1,0));
+		addObj(longTop);
 
-				GameObject longBot = new GameObject(300, 585, 50,100, new Vec(1,0));
-				longBot.setShape(new Rectangle2D.Double());
-				longBot.setVisible(true);
-				longBot.setColor(Color.gray);
-				addObj(longBot);
+		GameObject longBot = wall(300, 585, 50,100, new Vec(1,0));
+		addObj(longBot);
 
-				//hallway
-				GameObject hallTop = new GameObject(1000, 275, 200,50, new Vec(1,0));
-				hallTop.setShape(new Rectangle2D.Double());
-				hallTop.setVisible(true);
-				hallTop.setColor(Color.darkGray);
-				addObj(hallTop);
+		//hallway
+		GameObject hallTop = new GameObject(1000, 275, 200,50, new Vec(1,0));
+		hallTop.setShape(new Rectangle2D.Double());
+		hallTop.setVisible(true);
+		hallTop.setColor(Color.darkGray);
+		addObj(hallTop);
 
-				GameObject hallBot = new GameObject(1000, 375, 200,50, new Vec(1,0));
-				hallBot.setShape(new Rectangle2D.Double());
-				hallBot.setVisible(true);
-				hallBot.setColor(Color.darkGray);
-				addObj(hallBot);
+		GameObject hallBot = new GameObject(1000, 375, 200,50, new Vec(1,0));
+		hallBot.setShape(new Rectangle2D.Double());
+		hallBot.setVisible(true);
+		hallBot.setColor(Color.darkGray);
+		addObj(hallBot);
 	}
 	
 	public void secondSection(){
 		//bottom
 		GameObject bottom = borderWall(1200,685,665,20,new Vec(1,0));
 		addObj(bottom);
-		
 		//right
 		GameObject right = borderWall(1845,-200,20,900,new Vec(1,0));
 		addObj(right);
-		
 		//top
 		GameObject top = borderWall(1200,-150,665,20,new Vec(1,0));
 		addObj(top);
+		//bottom Left Wall
+		GameObject wallBottomLeft = wall(1200,600,200,20,new Vec(1,0));
+		addObj(wallBottomLeft);
+		//bottom Right Wall 
+		GameObject wallBottomRight = wall(1645,600,200,20,new Vec(1,0));
+		addObj(wallBottomRight);
+		
+		//middle left top
+		GameObject wallLeftTop = wall(1200,275,100,20,new Vec(1,0));
+		addObj(wallLeftTop);
+		//middle left top reset
+		GameObject resetLeftTop = reseter(1200,286,100,10,new Vec(1,0),1110,335);
+		addObj(resetLeftTop);
+		//middle left
+		GameObject wallMiddleLeft = wall(1300,275,20,200,new Vec(1,0));
+		addObj(wallMiddleLeft);
+		//middle right
+		GameObject wallMiddleRight = wall(1720,275,20,200,new Vec(1,0));
+		addObj(wallMiddleRight);
+		
 		
 		//reset/kill object
-		GameObject milk = reseter(1200,685,100,10,new Vec(1,0),1100,325);
-		addObj(milk);
+		GameObject milkLeft = reseter(1200,684,100,10,new Vec(1,0),1110,335);
+		addObj(milkLeft);
+		//reset wall(bottom middle)
+		GameObject milkMiddle = reseter(1400,684,245,10,new Vec(1,0),1110,335);
+		addObj(milkMiddle);
+		//reset wall(bottom right)
+		GameObject milkRight = reseter(1745,684,100,10,new Vec(1,0),1110,335);
+		addObj(milkRight);
+		
+		GameObject bouncey1 = bounceyWall(1719,275,10,200,new Vec(1,0));
+		addObj(bouncey1);
+		GameObject bouncey2 = bounceyWall(1311,275,10,200,new Vec(1,0));
+		addObj(bouncey2);
+		
+		
+		//basket
+		GameObject capLeft = wall(1400,-10,20,10,new Vec(1,0));
+		addObj(capLeft);
+		GameObject capRight = wall(1622,-10,20,10,new Vec(1,0));
+		addObj(capRight);
+		
+		GameObject leftBounce = bounceyWall(1400,0,10,250,new Vec(1,0));
+		addObj(leftBounce);
+		GameObject leftReseter = reseter(1410,0,10,250,new Vec(1,0),1110,335);
+		addObj(leftReseter);
+		
+		GameObject rightBounce = bounceyWall(1632,0,10,250,new Vec(1,0));
+		addObj(rightBounce);
+		GameObject rightReseter = reseter(1622,0,10,250,new Vec(1,0),1110,335);
+		addObj(rightReseter);
+		
+		GameObject bottomBounce = bounceyWall(1410,240,222,10,new Vec(1,0));
+		addObj(bottomBounce);
+		GameObject bottomWall = wall(1410,230,222,10,new Vec(1,0));
+		addObj(bottomWall);
+			
 		
 		//captive rat
-		GameObject captiveRat1 = new GameObject(1300, 350, 20, 20, new Vec(1, 0));
+		GameObject captiveRat1 = new GameObject(1220, 640, 20, 20, new Vec(1, 0));
 		captiveRat1.setShape(new Ellipse2D.Double());
 		captiveRat1.setVisible(true);
-		captiveRat1.setColor(Color.green);
+		captiveRat1.setColor(Color.orange);
 		captiveRat1.setState(new CaptiveRatState());
 		addObj(captiveRat1);
+		
+		GameObject captiveRat2 = new GameObject(1780, 640, 20, 20, new Vec(1, 0));
+		captiveRat2.setShape(new Ellipse2D.Double());
+		captiveRat2.setVisible(true);
+		captiveRat2.setColor(Color.orange);
+		captiveRat2.setState(new CaptiveRatState());
+		addObj(captiveRat2);
+		
+		GameObject captiveRat3 = new GameObject(1510, 200, 20, 20, new Vec(1, 0));
+		captiveRat3.setShape(new Ellipse2D.Double());
+		captiveRat3.setVisible(true);
+		captiveRat3.setColor(Color.orange);
+		captiveRat3.setState(new CaptiveRatState());
+		addObj(captiveRat3);
 	}
 	
 	public void thirdSection(){
+		
+		//left border wall
+		GameObject left = borderWall(280,-150,20,150,new Vec(1,0));
+		addObj(left);
 		
 		//top border wall
 		GameObject top = borderWall(300,-150,900,10,new Vec(1,0));
@@ -193,6 +247,17 @@ public class TestState extends EngineState {
 		//bottom bouncey right
 		GameObject bouncey3 = bounceyWall(850,-1,350,10,new Vec(1,0));
 		addObj(bouncey3);
+		
+		GameObject reseter = reseter(750,-100,10,70,new Vec(1,0),1200,-75);
+		addObj(reseter);
+		
+		//captive rat
+		GameObject captiveRat1 = new GameObject(340, -75, 20, 20, new Vec(1, 0));
+		captiveRat1.setShape(new Ellipse2D.Double());
+		captiveRat1.setVisible(true);
+		captiveRat1.setColor(Color.orange);
+		captiveRat1.setState(new CaptiveRatState());
+		addObj(captiveRat1);
 	}
 	
 	/**
@@ -209,6 +274,14 @@ public class TestState extends EngineState {
 		obj.setShape(new Rectangle2D.Double());
 		obj.setVisible(true);
 		obj.setColor(Color.black);
+		return obj;
+	}
+	
+	public GameObject wall(int x, int y, int w, int h, Vec v){
+		GameObject obj = new GameObject(x,y,w,h,v);
+		obj.setShape(new Rectangle2D.Double());
+		obj.setVisible(true);
+		obj.setColor(Color.gray);
 		return obj;
 	}
 	
@@ -290,6 +363,23 @@ public class TestState extends EngineState {
 				triggeredBy.setPos(new Vec(px,py));
 				triggeredBy.setState(new PlayerAimState());
 				((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow(triggeredBy.getPos());
+			}
+		});
+		return obj;
+	}
+	
+	public GameObject objectSwapper(int x, int y, int w, int h, Vec v){
+		GameObject obj = new GameObject(x,y,w,h,v);
+		obj.setShape(new Rectangle2D.Double());
+		obj.setVisible(true);
+		obj.setColor(Color.green);
+		obj.setTriggerable(true);
+		obj.addTrigger(new Trigger(){
+
+			@Override
+			//triggered event
+			public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
+				swap = !swap;
 			}
 		});
 		return obj;
