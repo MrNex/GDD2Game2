@@ -161,18 +161,30 @@ public class TestState extends EngineState {
 		addObj(right);
 		
 		//top
-		GameObject top = borderWall(1200,-200,665,20,new Vec(1,0));
+		GameObject top = borderWall(1200,-150,665,20,new Vec(1,0));
 		addObj(top);
+		
+		//reset/kill object
+		GameObject milk = reseter(1200,685,100,10,new Vec(1,0),1100,325);
+		addObj(milk);
+		
+		//captive rat
+		GameObject captiveRat1 = new GameObject(1300, 350, 20, 20, new Vec(1, 0));
+		captiveRat1.setShape(new Ellipse2D.Double());
+		captiveRat1.setVisible(true);
+		captiveRat1.setColor(Color.green);
+		captiveRat1.setState(new CaptiveRatState());
+		addObj(captiveRat1);
 	}
 	
 	public void thirdSection(){
 		
 		//top border wall
-		GameObject top = borderWall(300,-200,900,10,new Vec(1,0));
+		GameObject top = borderWall(300,-150,900,10,new Vec(1,0));
 		addObj(top);
 		
 		//top bouncey object
-		GameObject bouncey1 = bounceyWall(300,-190,900,10,new Vec(1,0));
+		GameObject bouncey1 = bounceyWall(300,-140,900,10,new Vec(1,0));
 		addObj(bouncey1);
 		
 		//bottom bouncey left
@@ -259,6 +271,25 @@ public class TestState extends EngineState {
 				
 				//Set triggeredBy's forward to force
 				triggeredBy.setForward(force);
+			}
+		});
+		return obj;
+	}
+	
+	public GameObject reseter(int x, int y, int w, int h, Vec v, final int px, final int py){
+		GameObject obj = new GameObject(x,y,w,h,v);
+		obj.setShape(new Rectangle2D.Double());
+		obj.setVisible(true);
+		obj.setColor(Color.white);
+		obj.setTriggerable(true);
+		obj.addTrigger(new Trigger(){
+
+			@Override
+			//triggered event
+			public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
+				triggeredBy.setPos(new Vec(px,py));
+				triggeredBy.setState(new PlayerAimState());
+				((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow(triggeredBy.getPos());
 			}
 		});
 		return obj;
