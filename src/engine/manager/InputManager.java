@@ -93,6 +93,27 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 		return mousePosition;
 	}
 	
+	/**
+	* get instance cameramanager
+	* get cms position
+	* use static add method to create new vector adding the 2 together
+	* @return combined vector
+	*/
+	public Vec getMouseWorldPosition(){
+		CameraManager cm = (CameraManager)Engine.currentInstance.getManager(Managers.CAMERAMANAGER);
+		ScreenManager sm = (ScreenManager)Engine.currentInstance.getManager(Managers.SCREENMANAGER);
+		
+		Vec cameraPosition = cm.getPosition();
+		Vec combined = Vec.add(cameraPosition, mousePosition);
+		Vec screenDimensions = new Vec(sm.getWindow().getWidth(), sm.getWindow().getHeight());
+		screenDimensions.scalarMultiply(0.5);
+		combined.subtract(screenDimensions);
+		System.out.println(combined.toString());
+		
+		return combined;
+		
+	}
+	
 	public Vec getPreviousMousePosition(){
 		return previousMousePosition;
 	}

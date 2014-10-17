@@ -1,3 +1,8 @@
-/state/
+/Main.class
+/buffer/
 /engine/
+/loader/
+/mathematics/
 /objects/
+/state/
+/triggers/

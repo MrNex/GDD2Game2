@@ -34,7 +34,7 @@ public class PlayerAimState extends ObjectState {
 
 	/**
 	 * Updates the gameObjects normal to point at the mouse.
-	 * If the left mouse buton is pressed, swaps to PlayerFlyState
+	 * If the left mouse button is pressed, swaps to PlayerFlyState
 	 */
 	@Override
 	public void update() {
@@ -42,9 +42,17 @@ public class PlayerAimState extends ObjectState {
 		InputManager input =  (InputManager)Engine.currentInstance.getManager(Managers.INPUTMANAGER);
 		
 		//Create a forward vector pointing at the mouse
+		//Vec forward = new Vec(2);
+		//forward.copy(input.getMousePosition());
+		//forward.subtract(attachedTo.getCenter());
+		
+		
+		//do same with world mouse position
 		Vec forward = new Vec(2);
-		forward.copy(input.getMousePosition());
+		forward.copy(input.getMouseWorldPosition());
+		System.out.println(attachedTo.getCenter());
 		forward.subtract(attachedTo.getCenter());
+		
 		
 		
 		//normalize it
