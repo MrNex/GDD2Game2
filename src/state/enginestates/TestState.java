@@ -55,9 +55,16 @@ public class TestState extends EngineState {
 		//Set camera to follow player
 		((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow(testObj.getPos());
 
+		//Load test level
+		//ContentManager content = (ContentManager)Engine.currentInstance.getManager(Engine.Managers.CONTENTMANAGER);
+		content.getLevel("TestLevel").load();
+		
+		//The follwing code loads the old level
+		/*
 		firstSection();
 		secondSection();
 		thirdSection();
+		*/
 	}
 
 	/*

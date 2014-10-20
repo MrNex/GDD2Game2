@@ -3,7 +3,9 @@ package engine.manager;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
+import levels.Level;
 import loader.ImageLoader;
+import loader.LevelLoader;
 import loader.Loader;
 
 /**
@@ -15,6 +17,7 @@ public class ContentManager extends Manager {
 
 	//Attributes
 	private HashMap<String, BufferedImage> images;
+	private HashMap<String, Level> levels;
 	
 	/**
 	 * Constructs a content manager
@@ -33,6 +36,15 @@ public class ContentManager extends Manager {
 		return images.get(imageName);
 	}
 	
+	/**
+	 * Gets a level by name from the levels hashmap
+	 * @param levelName The desired level's name
+	 * @return The level with the name that was specified
+	 */
+	public Level getLevel(String levelName){
+		return levels.get(levelName);
+	}
+	
 	//Methoids
 
 	/**
@@ -43,8 +55,10 @@ public class ContentManager extends Manager {
 		//Declare loader variable
 		Loader loader;
 		loader = new ImageLoader();
-		
 		images = loader.loadAll();
+		
+		loader = new LevelLoader();
+		levels = loader.loadAll();
 
 	}
 
