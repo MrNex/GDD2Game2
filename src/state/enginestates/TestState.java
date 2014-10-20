@@ -42,7 +42,7 @@ public class TestState extends EngineState {
 		//Visuals
 		testObj.setShape(new Ellipse2D.Double());
 		testObj.setColor(Color.orange);
-		testObj.setImage(content.getImage("TestImg"));
+		testObj.setImage(content.getImage("ratImage"));
 		testObj.setVisible(true);
 		//Behavior
 		testObj.setState(new PlayerAimState());
