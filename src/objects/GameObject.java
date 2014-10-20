@@ -107,6 +107,16 @@ public class GameObject {
 	public double getWidth(){
 		return width;
 	}
+	
+	/**
+	 * Assigns a new value to this gameObject's width
+	 * If the new width is negative, this objects width is set to 0
+	 * @param width The new width this object should have
+	 */
+	public void setWidth(double width){
+		if(width <= 0) this.width = 0;
+		else this.width = width;
+	}
 
 	/**
 	 * Gets the height of the gameobjects bounding box
@@ -114,6 +124,16 @@ public class GameObject {
 	 */
 	public double getHeight(){
 		return height;
+	}
+	
+	/**
+	 * Assigns a new value to this gameObject's Height
+	 * If the new Height is negative, this objects Height is set to 0
+	 * @param width The new Height this object should have
+	 */
+	public void setHeight(double height){
+		if(height <= 0) this.height = 0;
+		else this.height = height;
 	}
 
 	/**

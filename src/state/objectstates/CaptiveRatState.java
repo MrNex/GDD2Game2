@@ -28,6 +28,7 @@ public class CaptiveRatState extends CollectableState {
 
 	@Override
 	public void exit() {
+		
 	}
 	
 	/**

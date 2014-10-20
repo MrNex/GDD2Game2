@@ -100,6 +100,8 @@ public class LevelLoader extends Loader<Level> {
 				}
 				previousColor = Color.white;
 			}
+			//Optimize the level
+			thisLevel.optimize();
 			
 			//Add level to hashmap
 			levels.put(key, thisLevel);
