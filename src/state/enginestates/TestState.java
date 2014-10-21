@@ -356,6 +356,7 @@ public class TestState extends EngineState {
 		return obj;
 	}
 	
+
 	public GameObject reseter(int x, int y, int w, int h, Vec v, final int px, final int py){
 		GameObject obj = new GameObject(x,y,w,h,v);
 		obj.setShape(new Rectangle2D.Double());
@@ -375,6 +376,7 @@ public class TestState extends EngineState {
 		return obj;
 	}
 	
+	//Comment your code. What is this supposed to do?
 	public GameObject objectSwapper(int x, int y, int w, int h, Vec v){
 		GameObject obj = new GameObject(x,y,w,h,v);
 		obj.setShape(new Rectangle2D.Double());
