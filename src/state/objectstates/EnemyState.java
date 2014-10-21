@@ -57,7 +57,7 @@ public class EnemyState extends ObjectState {
 	@Override
 	public void exit() {
 		attachedTo.setVisible(false);
-		attachedTo.setRunning(false);
+		//attachedTo.setRunning(false);
 
 	}
 

@@ -11,19 +11,41 @@ import mathematics.Vec;
  * Movable game objects solve this problem by tracking a previous position.
  * In case of a collision MovableGameObjects will be reverted back
  * to their previousPosition by the collision manager.
+ * 
+ * Movable game objects also implement an activeCheckpoint. If movableGameobjects
+ * collide with a deathTrigger they are set back to their activeCheckpoint.
  * @author Nex
  *
  */
 public class MovableGameObject extends GameObject {
 
 	//Attributes
+	protected GameObject activeCheckpoint;
 	protected Vec previousPosition;
-	
+
+	//Accessors/modifiers
+	/**
+	 * Sets the activeCheckPoint to a specified gameObject
+	 * Specified gameObject should probably not be solid.
+	 * @param checkpoint gameObject with attached checkpoint trigger
+	 */
+	public void setActiveCheckpoint(GameObject checkpoint){
+		activeCheckpoint = checkpoint;
+	}
+
+	/**
+	 * Gets the activeCheckpoint of this movableGameObject
+	 * @return The last object with an attached CheckpointTrigger that this movable game object touched
+	 */
+	public GameObject getActiveCheckpoint(){
+		return activeCheckpoint;
+	}
+
 	public MovableGameObject(double xx, double yy, double w, double h, Vec fwd) {
 		super(xx, yy, w, h, fwd);
 		previousPosition = new Vec(2);
 	}
-	
+
 	/**
 	 * Updates previousPosition and increments position by the movementVector
 	 * Also makes call to updateShape
@@ -34,7 +56,7 @@ public class MovableGameObject extends GameObject {
 		position.add(movementVec);
 		updateShape();
 	}
-	
+
 	/**
 	 * Reverts the position back to the previous position
 	 * And makes call to updateShape
@@ -43,6 +65,13 @@ public class MovableGameObject extends GameObject {
 		position.copy(previousPosition);
 		System.out.println(position.toString());
 		updateShape();
+	}
+	
+	/**
+	 * Sets the previousosition to the currentPosition
+	 */
+	public void refresh(){
+		previousPosition.copy(position);
 	}
 
 }

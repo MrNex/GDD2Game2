@@ -22,7 +22,8 @@ public class GameObject {
 	protected Vec position;
 	protected Vec forward, right;
 	protected double width, height;
-	protected boolean visible, running;
+	protected boolean visible;
+	protected boolean solid;
 	protected RectangularShape shape;
 	protected BufferedImage image;
 	protected Color color;
@@ -53,7 +54,6 @@ public class GameObject {
 
 		//Set default attributes
 		visible = false;
-		running = false;
 
 		currentState = null;
 
@@ -63,8 +63,8 @@ public class GameObject {
 		image = null;
 
 		triggerable = false;
-
-
+		
+		solid = true;
 	}
 
 	//Accessors
@@ -221,15 +221,28 @@ public class GameObject {
 	 * @return Whether or not the gameobject is running.
 	 */
 	public boolean isRunning(){
-		return running;
+		//return running;
+		return getState() != null;
 	}
-
+	
 	/**
-	 * Sets whether or not the gameObject is running
-	 * @param isRunning Is the gameObject running
+	 * Gets whether or not this gameObject is solid.
+	 * A solid gameObject will still be triggered upon collision, however it will not revert a movable game object
+	 * to it's previous position.
+	 * @return Whether this gameobject is solid
 	 */
-	public void setRunning(boolean isRunning){
-		running = isRunning;
+	public boolean isSolid(){
+		return solid;
+	}
+	
+	/**
+	 * Sets whether or not this gameobject is solid.
+	 * A solid gameObject will still be triggered upon collision, however it will not revert a movable game object
+	 * to it's previous position.
+	 * @param isSolid Whether this gameObject should be solid
+	 */
+	public void setSolid(boolean isSolid){
+		solid = isSolid;
 	}
 
 	/**
@@ -323,7 +336,7 @@ public class GameObject {
 	 * Updates the current state of the gameObject if this object is running
 	 */
 	public void update(){
-		if(running){
+		if(isRunning()){
 			currentState.update();
 		}
 	}

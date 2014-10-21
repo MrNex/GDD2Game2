@@ -30,13 +30,13 @@ public class PlayerFlyState extends ObjectState{
 	//Attributes
 	private double movementSpeed;
 	private double turnSpeed;
-	
-	
+
+
 	//Accessors
 	public double getMovementSpeed(){
 		return movementSpeed;
 	}
-	
+
 	public PlayerFlyState() {
 		movementSpeed = 0.002;
 		turnSpeed = 0.006;
@@ -50,15 +50,27 @@ public class PlayerFlyState extends ObjectState{
 		return (MovableGameObject)attachedTo;
 	}
 
+	/**
+	 * Called when the player enters player fly state.
+	 * Defines, initializes, and attaches trigger which causes toggling back to
+	 * PlayerAimState on collision.
+	 */
 	@Override
 	public void enter() {
 		attachedTo.addTrigger(new Trigger(){
 
+			/**
+			 * Trigger which causes player to swap to PlayerAimState upon colliding
+			 * With a solid gameObject. 
+			 * This trigger gets removed upon being activated.
+			 */
 			@Override
 			public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
-				attachedTo.setState(new PlayerAimState());
-				attachedTo.removeTrigger(this);
-
+				if(triggeredBy.isSolid())
+				{
+					attachedTo.setState(new PlayerAimState());
+					attachedTo.removeTrigger(this);
+				}
 			}
 
 		});
@@ -77,17 +89,17 @@ public class PlayerFlyState extends ObjectState{
 
 		//Create steering vector as copy of right vector
 		Vec steeringVector = new Vec(getPlayer().getRight());
-		
-		
+
+
 		Vec mouseVector = new Vec(2);
-		
+
 
 		//Find the difference in the previous and current mouse position on the x axis
 		double xDiff = input.getMousePosition().getComponent(0) - input.getPreviousMousePosition().getComponent(0);
 		double yDiff = input.getMousePosition().getComponent(1) - input.getPreviousMousePosition().getComponent(1);
 		mouseVector.setComponent(0, xDiff);
 		mouseVector.setComponent(1, yDiff);
-		
+
 		//dot em
 		//take number determine + or -
 		//look at sign
@@ -98,7 +110,7 @@ public class PlayerFlyState extends ObjectState{
 		{
 			dotSign = dottedDifference/Math.abs(dottedDifference);
 		}
-		
+
 		double scaleFactor = Math.abs(dottedDifference) * dotSign;
 
 		steeringVector.scalarMultiply(scaleFactor * turnSpeed);
@@ -131,14 +143,14 @@ public class PlayerFlyState extends ObjectState{
 		lineEnd.setComponent(0, 1);
 		lineEnd.setMag(50);
 		g2d.drawLine((int)lineStart.getComponent(0), (int)lineStart.getComponent(1), (int)lineEnd.getComponent(0), (int)lineEnd.getComponent(1));
-	
+
 		g2d.setColor(Color.red);
 		Vec rStart = new Vec(2);
 		Vec rEnd = new Vec(2);
 		rEnd.setComponent(1, 1);
 		rEnd.setMag(15);
 		g2d.drawLine((int)rStart.getComponent(0), (int)rStart.getComponent(1), (int)rEnd.getComponent(0), (int)rEnd.getComponent(1));
-		
+
 		g2d.setColor(Color.red);
 		Vec lStart = new Vec(2);
 		Vec lEnd = new Vec(2);

@@ -46,18 +46,18 @@ public class TestState extends EngineState {
 		testObj.setVisible(true);
 		//Behavior
 		testObj.setState(new PlayerAimState());
-		testObj.setRunning(true);
+		//testObj.setRunning(true);
 		//Components
 		testObj.setTriggerable(true);
 		//Add gameobject to current state
 		addObj(testObj);
 		
 		//Set camera to follow player
-		((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow(testObj.getPos());
+		((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow((MovableGameObject)testObj);
 
 		//Load test level
 		//ContentManager content = (ContentManager)Engine.currentInstance.getManager(Engine.Managers.CONTENTMANAGER);
-		content.getLevel("TestLevel").load();
+		content.getLevel("TestLevel2").load();
 		
 		//The follwing code loads the old level
 		/*
@@ -370,7 +370,7 @@ public class TestState extends EngineState {
 			public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
 				triggeredBy.setPos(new Vec(px,py));
 				triggeredBy.setState(new PlayerAimState());
-				((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow(triggeredBy.getPos());
+				//((CameraManager)Engine.currentInstance.getManager(Engine.Managers.CAMERAMANAGER)).setFollow(triggeredBy.getPos());
 			}
 		});
 		return obj;

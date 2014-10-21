@@ -13,6 +13,8 @@ import javax.imageio.ImageIO;
 
 import objects.GameObject;
 import triggers.BounceTrigger;
+import triggers.CheckpointTrigger;
+import triggers.DeathTrigger;
 import levels.Level;
 import mathematics.Vec;
 
@@ -112,11 +114,14 @@ public class LevelLoader extends Loader<Level> {
 	
 	/**
 	 * 
-	 * @param pixelRow
-	 * @param startIndex
-	 * @param pixelColumn
-	 * @param objColor
-	 * @return
+	 * @param pixelRow Row of image object is in
+	 * @param startIndex Pixel column of image that this object color started
+	 * @param pixelColumn Pixel column of image that this object color ends
+	 * @param objColor The object color
+	 * @return A ready-to-go gameObject:
+	 * 				Red (FF0000): BounceWall
+	 * 				Green(00FF00): Checkpoint
+	 * 				Blue(0000FF): DeathWall
 	 */
 	private GameObject makeObject(int pixelRow, int startIndex, int pixelColumn, Color objColor){
 		//Get obj xPos
@@ -128,11 +133,24 @@ public class LevelLoader extends Loader<Level> {
 		double h = 20;
 		
 		//Create object
-		GameObject obj = makeWall(x, y, w, h, new Vec(1, 0));
+		GameObject obj = makeWall(x, y, w, h, new Vec(1, 0), objColor);
+		
+		//Add any special effects to object
 		if(objColor.equals(Color.red)){
+			//Creates bounce wall
 			obj.setTriggerable(true);
 			obj.addTrigger(new BounceTrigger());
-			obj.setColor(Color.red);
+		}
+		else if(objColor.equals(Color.green)){
+			//Creates checkPoint
+			obj.setTriggerable(true);
+			obj.addTrigger(new CheckpointTrigger());
+			obj.setSolid(false);
+		}
+		else if(objColor.equals(Color.blue)){
+			//Creates death wall
+			obj.setTriggerable(true);
+			obj.addTrigger(new DeathTrigger());
 		}
 		return obj;
 	}
@@ -146,11 +164,11 @@ public class LevelLoader extends Loader<Level> {
 	 * @param Forward vector (1, 0) if not rotated.
 	 * @return A gameobject representing  wall
 	 */
-	private GameObject makeWall(double x, double y, double w, double h, Vec v){
+	private GameObject makeWall(double x, double y, double w, double h, Vec v, Color c){
 		GameObject obj = new GameObject(x,y,w,h,v);
 		obj.setShape(new Rectangle2D.Double());
 		obj.setVisible(true);
-		obj.setColor(Color.black);
+		obj.setColor(c);
 		return obj;
 	}
 	

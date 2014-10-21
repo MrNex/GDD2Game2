@@ -53,8 +53,12 @@ public class CollisionManager extends Manager {
 					//Get the collision buffer!
 					CollisionBuffer cBuff = new CollisionBuffer(obj1, obj2);
 					
-					if(obj1.isColliding(obj2)){
-						((MovableGameObject)obj1).revert();
+					if(obj1.isColliding(obj2) && obj2.isColliding(obj1)){
+						//Only revert if both objects are solid
+						if(obj1.isSolid() && obj2.isSolid())
+							((MovableGameObject)obj1).revert();
+						
+						//Triggers are pulled / activated even if objects aren't solid.
 						
 						//If object 1 is triggerable
 						if(obj1.isTriggerable()){

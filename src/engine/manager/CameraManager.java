@@ -3,6 +3,7 @@ package engine.manager;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
+import objects.MovableGameObject;
 import engine.Engine;
 import engine.Engine.Managers;
 import mathematics.Vec;
@@ -16,7 +17,7 @@ public class CameraManager extends Manager {
 
 	//Attributes
 	private Vec position;
-	private Vec follow;
+	private MovableGameObject follow;
 	private AffineTransform savedSystem;
 
 	//Accessors / modifiers
@@ -29,20 +30,20 @@ public class CameraManager extends Manager {
 	}
 	
 	/**
-	 * Gets the vector the camera is currently following.
+	 * Gets the gameobject the camera is currently following.
 	 * @return The vector the camera is currently snapping to
 	 */
-	public Vec getFollow(){
+	public MovableGameObject getFollow(){
 		return follow;
 	}
 	
 	/**
-	 * Sets the followVector of camera.
-	 * The followVector is a vector which the camera, if not null,
-	 * Will automatically snap to every update cycle.
+	 * Sets the gameobject the camera is following of camera.
+	 * Follow is a gameObject which the camera, if not null,
+	 * Will automatically get its position and snap to every update cycle.
 	 * @param toFollow
 	 */
-	public void setFollow(Vec toFollow){
+	public void setFollow(MovableGameObject toFollow){
 		follow = toFollow;
 	}
 	
@@ -72,7 +73,7 @@ public class CameraManager extends Manager {
 	@Override
 	public void update() {
 		if(follow != null){
-			snapTo(follow);
+			snapTo(follow.getPos());
 		}
 	}
 
