@@ -38,7 +38,7 @@ public class TestState extends EngineState {
 
 		//Create player
 		//Create a gameobject
-		GameObject testObj = new MovableGameObject(30, 340, 20, 20, new Vec(1, 0));
+		GameObject testObj = new MovableGameObject(160, 60, 20, 20, new Vec(1, 0));
 		//Visuals
 		testObj.setShape(new Ellipse2D.Double());
 		testObj.setColor(Color.orange);

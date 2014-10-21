@@ -119,9 +119,9 @@ public class LevelLoader extends Loader<Level> {
 	 * @param pixelColumn Pixel column of image that this object color ends
 	 * @param objColor The object color
 	 * @return A ready-to-go gameObject:
-	 * 				Red (FF0000): BounceWall
+	 * 				Blue (0000FF): BounceWall
 	 * 				Green(00FF00): Checkpoint
-	 * 				Blue(0000FF): DeathWall
+	 * 				Red (FF0000): DeathWall
 	 */
 	private GameObject makeObject(int pixelRow, int startIndex, int pixelColumn, Color objColor){
 		//Get obj xPos
@@ -136,7 +136,7 @@ public class LevelLoader extends Loader<Level> {
 		GameObject obj = makeWall(x, y, w, h, new Vec(1, 0), objColor);
 		
 		//Add any special effects to object
-		if(objColor.equals(Color.red)){
+		if(objColor.equals(Color.blue)){
 			//Creates bounce wall
 			obj.setTriggerable(true);
 			obj.addTrigger(new BounceTrigger());
@@ -147,7 +147,7 @@ public class LevelLoader extends Loader<Level> {
 			obj.addTrigger(new CheckpointTrigger());
 			obj.setSolid(false);
 		}
-		else if(objColor.equals(Color.blue)){
+		else if(objColor.equals(Color.red)){
 			//Creates death wall
 			obj.setTriggerable(true);
 			obj.addTrigger(new DeathTrigger());
