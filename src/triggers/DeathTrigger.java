@@ -19,7 +19,7 @@ public class DeathTrigger extends Trigger {
 	 * Constructs a deathTrigger
 	 */
 	public DeathTrigger() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**

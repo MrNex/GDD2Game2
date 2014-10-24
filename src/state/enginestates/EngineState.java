@@ -17,7 +17,7 @@ public class EngineState extends State {
 	protected ArrayList<GameObject> objects;			//Current list of objs in gameState
 	protected ArrayList<GameObject> toRemove;			//Current list of objs being removed this update loop
 	protected ArrayList<GameObject> toAdd;				//Current list of objs being added this update loop
-
+	
 	/**
 	 * Constructs an engine state
 	 * 	Calls constructor of State
@@ -66,6 +66,15 @@ public class EngineState extends State {
 	 */
 	public void removeObj(GameObject objToRemove){
 		toRemove.add(objToRemove);
+	}
+	
+	/**
+	 * Removes everything from the current state
+	 */
+	public void wipeState(){
+		toAdd.clear();
+		toRemove.clear();
+		toRemove.addAll(objects);
 	}
 
 

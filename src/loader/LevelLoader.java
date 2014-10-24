@@ -12,9 +12,11 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 import objects.GameObject;
+import state.objectstates.StartpointState;
 import triggers.BounceTrigger;
 import triggers.CheckpointTrigger;
 import triggers.DeathTrigger;
+import triggers.NextLevelTrigger;
 import levels.Level;
 import mathematics.Vec;
 
@@ -119,9 +121,11 @@ public class LevelLoader extends Loader<Level> {
 	 * @param pixelColumn Pixel column of image that this object color ends
 	 * @param objColor The object color
 	 * @return A ready-to-go gameObject:
-	 * 				Blue (0000FF): BounceWall
-	 * 				Green(00FF00): Checkpoint
-	 * 				Red (FF0000): DeathWall
+	 * 				Blue	(0000FF):	BounceWall
+	 * 				Green	(00FF00):	Checkpoint
+	 * 				Red		(FF0000):	DeathWall
+	 * 				Yellow	(FFFF00):	LevelEndPoint
+	 * 				Cyan	(00FFFF): 	LevelStartPoint
 	 */
 	private GameObject makeObject(int pixelRow, int startIndex, int pixelColumn, Color objColor){
 		//Get obj xPos
@@ -151,6 +155,17 @@ public class LevelLoader extends Loader<Level> {
 			//Creates death wall
 			obj.setTriggerable(true);
 			obj.addTrigger(new DeathTrigger());
+		}
+		else if(objColor.equals(Color.yellow)){
+			//Creates finish line
+			obj.setTriggerable(true);
+			obj.addTrigger(new NextLevelTrigger());
+		}
+		else if(objColor.equals(Color.cyan)){
+			obj.setTriggerable(true);
+			obj.addTrigger(new CheckpointTrigger());
+			obj.setState(new StartpointState());
+			obj.setSolid(false);
 		}
 		return obj;
 	}

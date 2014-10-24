@@ -8,6 +8,7 @@ import javax.swing.Timer;
 import engine.manager.*;
 import state.*;
 import state.enginestates.EngineState;
+import state.enginestates.GameState;
 import state.enginestates.TestState;
 
 
@@ -51,9 +52,6 @@ public class Engine {
 		//Set internal variables
 		running = false;
 
-		//Create currentState
-		currentState = new TestState();
-
 
 		//Create managers
 		managers = new Manager[5];
@@ -65,9 +63,11 @@ public class Engine {
 		managers[Managers.SCREENMANAGER.ordinal()] = new ScreenManager();
 
 
-		//Create objects!
-		((TestState)currentState).createTestLevel();
+		//Create the current state
+		currentState = new GameState();
 		
+		//Create objects!
+		((GameState)currentState).loadNextLevel();
 		
 		
 		//Create timer for screen manager

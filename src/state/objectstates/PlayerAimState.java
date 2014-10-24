@@ -41,16 +41,9 @@ public class PlayerAimState extends ObjectState {
 		//Get the inputmanager
 		InputManager input =  (InputManager)Engine.currentInstance.getManager(Managers.INPUTMANAGER);
 		
-		//Create a forward vector pointing at the mouse
-		//Vec forward = new Vec(2);
-		//forward.copy(input.getMousePosition());
-		//forward.subtract(attachedTo.getCenter());
-		
-		
-		//do same with world mouse position
+		//Create a forward vector pointing at the mouse's world position
 		Vec forward = new Vec(2);
 		forward.copy(input.getMouseWorldPosition());
-		System.out.println(attachedTo.getCenter());
 		forward.subtract(attachedTo.getCenter());
 		
 		
