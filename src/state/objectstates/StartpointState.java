@@ -49,7 +49,7 @@ public class StartpointState extends ObjectState{
 		}
 		else{
 			//Remove this state from it's object
-			attachedTo.setState(null);
+			//attachedTo.setState(null);
 		}
 		
 	}

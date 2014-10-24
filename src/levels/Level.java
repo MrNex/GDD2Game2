@@ -56,7 +56,8 @@ public class Level {
 	 */
 	public void load(){
 		EngineState currentState = Engine.currentInstance.getCurrentState();
-		for(GameObject obj : objects){
+		ArrayList<GameObject> copyList = new ArrayList<GameObject>(objects);
+		for(GameObject obj : copyList){
 			currentState.addObj(obj);
 		}
 	}

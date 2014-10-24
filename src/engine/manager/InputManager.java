@@ -27,8 +27,6 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	private boolean[] mButtons;
 	private Vec mousePosition;
 	private Vec previousMousePosition;
-	private boolean mouseWrap;
-	Robot r;
 	
 	/**
 	 * Constructs a new input manager
@@ -56,6 +54,7 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	//Accessors
 	/**
 	 * Determines if a given key is pressed
+	 * This is case insensitive
 	 * @param c Character on key
 	 * @return
 	 */
@@ -170,7 +169,10 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	 */
 	@Override
 	public void keyPressed(KeyEvent keyPress) {
-		keys[(int)Character.toUpperCase(keyPress.getKeyChar())] = true;
+		if((int)Character.toUpperCase(keyPress.getKeyChar()) < keys.length){
+			keys[(int)Character.toUpperCase(keyPress.getKeyChar())] = true;
+		}
+		
 		
 	}
 
@@ -179,8 +181,9 @@ public class InputManager extends Manager implements KeyListener, MouseListener{
 	 */
 	@Override
 	public void keyReleased(KeyEvent keyRelease) {
-		keys[(int)Character.toUpperCase(keyRelease.getKeyChar())] = false;
-		
+		if((int)Character.toUpperCase(keyRelease.getKeyChar()) < keys.length){
+			keys[(int)Character.toUpperCase(keyRelease.getKeyChar())] = false;
+		}
 	}
 
 	@Override
