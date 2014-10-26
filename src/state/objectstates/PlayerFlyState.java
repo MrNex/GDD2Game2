@@ -38,7 +38,7 @@ public class PlayerFlyState extends ObjectState{
 	}
 
 	public PlayerFlyState() {
-		movementSpeed = 0.002;
+		movementSpeed = 0.006;
 		turnSpeed = 0.006;
 	}
 

@@ -143,6 +143,14 @@ public class Vec {
 
 		return returnVector;
 	}
+	
+	/**
+	 * Limits the magnitude of this vector to a certain cap
+	 * @param cap The number to limit the magnitude of this vector to
+	 */
+	public void limit(double cap){
+		if(getMag() > cap) setMag(cap);
+	}
 
 	/**
 	 * Normalizes this vector.

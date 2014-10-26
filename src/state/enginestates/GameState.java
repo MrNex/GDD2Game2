@@ -1,5 +1,9 @@
 package state.enginestates;
 
+import java.awt.Color;
+import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+
 import mathematics.Vec;
 import engine.Engine;
 import engine.manager.CameraManager;
@@ -8,6 +12,7 @@ import engine.manager.InputManager;
 import objects.GameObject;
 import objects.MovableGameObject;
 import state.objectstates.PlayerAimState;
+import state.objectstates.TailState;
 
 /**
  * A state which defines the behavior of the engine while inside of a level playing the game.
@@ -108,9 +113,28 @@ public class GameState extends EngineState {
 		content.getLevel("TestLevel" + currentLevel).load();
 
 
-
+		//Create the player's tail	
+		ArrayList<GameObject> tail = new ArrayList<GameObject>();
+		tail.add( new GameObject(player.getXPos(), player.getYPos(), 5, 5, new Vec(1, 0)));
+		tail.get(0).setShape(TailState.ellipse, Color.orange);
+		tail.get(0).setVisible(true);
+		tail.get(0).setSolid(false);
+		tail.get(0).setState(new TailState(player));
+		
+		for(int i = 1; i < 15; i++){
+			tail.add(new GameObject(player.getXPos(), player.getYPos(), 5, 5, new Vec(1, 0)));
+			tail.get(i).setShape(TailState.ellipse, Color.orange);
+			tail.get(i).setVisible(true);
+			tail.get(i).setSolid(false);
+			tail.get(i).setState(new TailState(tail.get(i - 1)));
+		}
+		
+		
 		//Add player
 		addObj(player);
+		for(int i = 0; i < 15; i++){
+			addObj(tail.get(i));
+		}
 	}
 
 	/**
