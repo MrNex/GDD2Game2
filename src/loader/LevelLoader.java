@@ -11,12 +11,15 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import engine.Engine;
+import buffer.CollisionBuffer;
 import objects.GameObject;
 import state.objectstates.StartpointState;
 import triggers.BounceTrigger;
 import triggers.CheckpointTrigger;
 import triggers.DeathTrigger;
 import triggers.NextLevelTrigger;
+import triggers.Trigger;
 import levels.Level;
 import mathematics.Vec;
 
@@ -126,6 +129,7 @@ public class LevelLoader extends Loader<Level> {
 	 * 				Red		(FF0000):	DeathWall
 	 * 				Yellow	(FFFF00):	LevelEndPoint
 	 * 				Cyan	(00FFFF): 	LevelStartPoint
+	 * 				Orange	(FFA500):	Collectible
 	 */
 	private GameObject makeObject(int pixelRow, int startIndex, int pixelColumn, Color objColor){
 		//Get obj xPos
@@ -165,6 +169,19 @@ public class LevelLoader extends Loader<Level> {
 			obj.setTriggerable(true);
 			obj.addTrigger(new CheckpointTrigger());
 			obj.setState(new StartpointState());
+			obj.setSolid(false);
+		}
+		else if(objColor.equals(new Color(255, 165, 0, 255))){
+			obj.setTriggerable(true);
+			obj.addTrigger(new Trigger(){
+
+				@Override
+				public void action(GameObject triggeredBy, CollisionBuffer cBuff) {
+					Engine.currentInstance.getCurrentState().removeObj(attachedTo);
+				}
+				
+			});
+			
 			obj.setSolid(false);
 		}
 		return obj;
